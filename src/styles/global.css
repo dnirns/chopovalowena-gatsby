@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: chopova-lowena-bold;
+  src: url(../assets/fonts/HelveticaNeueLTStd-BdCn.otf);
+}
+@font-face {
+  font-family: chopova-lowena;
+  src: url(../assets/fonts/HelveticaNeueLTStd-Cn.otf);
+}
+
+.cl-bold {
+  font-family: chopova-lowena-bold;
+}
+
+*,
+html,
+body,
+select,
+fieldset {
+  font-family: chopova-lowena-bold;
+}
+
+input {
+  font-family: chopova-lowena;
+}

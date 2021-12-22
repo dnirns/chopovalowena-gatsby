@@ -1,0 +1,18 @@
+node_modules/
+.cache/
+public
+.idea
+.vscode
+.DS_Store
+*.log
+yarn.lock
+gatsby-node.old.js
+.eslintrc.json
+# local env files
+.env
+.env.local*
+.env.development.local
+.env.test.local
+.env.production.local
+.env.development
+.env*
