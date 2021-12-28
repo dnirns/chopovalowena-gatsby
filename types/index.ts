@@ -56,3 +56,18 @@ export type GalleryType = {
     header: string
   }
 }
+
+export type GalleryQueryType = {
+  data: {
+    page: {
+      id: string
+      slug: string
+      season: string
+      galleryType: string
+      header: string
+      images: {
+        gatsbyImageData
+      }[]
+    }
+  }
+}

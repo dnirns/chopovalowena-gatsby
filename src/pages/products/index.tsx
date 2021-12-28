@@ -13,10 +13,12 @@ interface ProductsProps {
   }
 }
 const Products = ({ data: { products } }: ProductsProps) => {
-  console.log(products.nodes)
   return (
     <Layout>
-      <Seo title='All Products' />
+      <Seo
+        title='All Products'
+        description='Chopova Lowena E-Store - All Products'
+      />
       <ProductListing products={products.nodes} />
     </Layout>
   )

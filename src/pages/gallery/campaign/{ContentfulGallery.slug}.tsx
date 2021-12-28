@@ -1,18 +1,23 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { GalleryQueryType } from '../../../../types'
 import Layout from '../../../components/layout/Layout'
+import Seo from '../../../components/elements/Seo'
 
-const index = ({ data: { page } }) => {
+const index = ({ data: { page } }: GalleryQueryType) => {
   return (
     <Layout>
+      <Seo title={`Chopova Lowena ${page.season} ${page.galleryType}`} />
       <p className='text-8xl '>{page.header}</p>
       <div className='grid grid-cols-2 gap-4'>
         {page.images.map((image, index) => (
           <GatsbyImage
             key={index}
             objectFit='fill'
-            alt={`Product Image of ${page.header} #${index + 1}`}
+            alt={` Chopova Lowena ${page.season} ${page.galleryType} image #${
+              index + 1
+            }`}
             image={image.gatsbyImageData}
           />
         ))}
