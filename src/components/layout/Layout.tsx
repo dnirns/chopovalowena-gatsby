@@ -8,9 +8,12 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <div>
+    <div className='flex flex-col'>
       <Seo />
-      <Nav className='uppercase' />
+      <div className='w-full flex justify-end'>
+        <Nav className='uppercase' />
+      </div>
+
       <main className='pt-20 mx-4 md:mx-8 uppercase'>{children}</main>
     </div>
   )

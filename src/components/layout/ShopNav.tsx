@@ -28,8 +28,8 @@ const ShopNav = ({ title }: ShopNavProps) => {
   }
 
   return (
-    <nav className='flex flex-col flex-wrap relative h-auto uppercase space-y-1'>
-      <div className='relative w-full h-full flex flex-col text-left'>
+    <nav className='flex flex-col flex-wrap relative h-auto uppercase space-y-1 max-w-[80px]'>
+      <div className='relative w-full h-full flex flex-col  border border-blue-500'>
         <button
           className='uppercase text-left hover:text-blue-500'
           onClick={() => setNavOpen(true)}
@@ -39,9 +39,10 @@ const ShopNav = ({ title }: ShopNavProps) => {
         <div
           className={`${
             navOpen ? 'block' : 'hidden'
-          } flex flex-col relative pt-2 bg-white left-0 leading-none space-y-1 `}
+          } flex flex-col text-left pt-2 bg-white leading-none space-y-1 relative `}
           onMouseLeave={() => setNavOpen(false)}
         >
+          <div></div>
           <Link
             key='All'
             className=''

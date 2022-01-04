@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'gatsby'
 import { StoreContext } from '../../context/store-context'
 import ShopNav from './ShopNav'
-import CartButton from '../elements/CartButton'
+
 import GalleryNav from './GalleryNav'
 
 interface NavProps {
@@ -20,19 +20,23 @@ const Nav = ({ className }: NavProps) => {
 
   return (
     <nav
-      className={`${className} text-2xl flex fixed z-10 bg-white items-start pt-2 px-10 justify-end h-auto w-full`}
+      className={`${className} text-4xl flex fixed z-10 bg-white items-start pt-2  justify-between h-auto w-1/2`}
     >
-      <Link to='/' className='font-bold hover:text-red-500 w-[120px] '>
-        home
+      <Link to='/' className='hover:text-red-500 '>
+        about
       </Link>
-      <div className='w-[120px]'>
-        <GalleryNav title='GALLERY' />
+      <div className=' '>
+        <GalleryNav title='collections ' />
       </div>
-
-      <div className='w-[120px]'>
+      <div className=' '>
         <ShopNav title='shop' />
       </div>
-      <CartButton quantity={quantity} />
+      <Link to='/contact' className='hover:text-red-500   '>
+        contact
+      </Link>
+      <Link to='/stockists' className='hover:text-red-500  '>
+        stockists
+      </Link>
     </nav>
   )
 }
