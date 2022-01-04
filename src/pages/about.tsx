@@ -3,7 +3,6 @@ import { graphql } from 'gatsby'
 import Layout from '../components/layout/Layout'
 
 const about = ({ data: { page } }) => {
-  console.log(page.edges[0])
   return (
     <Layout>
       <main className='md:w-1/2'>

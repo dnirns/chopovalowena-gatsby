@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout/Layout'
 
-type Contact = {
+type ContactType = {
   node: {
     id: string
     title: string
@@ -15,7 +15,7 @@ const contact = ({ data: { contacts } }) => {
     <Layout>
       <main className='md:w-1/2'>
         <ul className='space-y-6 text-3xl'>
-          {contacts.edges.map((contact: Contact, i: number) => {
+          {contacts.edges.map((contact: ContactType) => {
             return (
               <li key={contact.node.id}>
                 <h2>{contact.node.title}:</h2>

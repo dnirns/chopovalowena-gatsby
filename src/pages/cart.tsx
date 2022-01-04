@@ -3,7 +3,7 @@ import Layout from '../components/layout/Layout'
 import { StoreContext } from '../context/store-context'
 import LineItem from '../components/products/LineItem'
 
-const CartPage = () => {
+const cart = () => {
   const { checkout, loading } = useContext(StoreContext)
   const emptyCart = checkout.lineItems.length === 0
 
@@ -40,4 +40,4 @@ const CartPage = () => {
   )
 }
 
-export default CartPage
+export default cart
