@@ -20,9 +20,9 @@ const Nav = ({ className }: NavProps) => {
 
   return (
     <nav
-      className={`${className} md:text-[20px] lg:text-[28px] xl:text-3xl flex fixed z-10 bg-white items-start pt-2  justify-between h-auto w-1/2`}
+      className={`${className} md:text-[20px] lg:text-[28px] xl:text-3xl flex fixed z-10 bg-white items-start pt-2 pr-4 justify-between h-auto w-1/2`}
     >
-      <Link to='/' className='hover:text-red-500 '>
+      <Link to='/about' className='hover:text-red-500 '>
         about
       </Link>
       <div className=' '>
