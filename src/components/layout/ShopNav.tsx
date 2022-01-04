@@ -28,8 +28,8 @@ const ShopNav = ({ title }: ShopNavProps) => {
   }
 
   return (
-    <nav className='flex flex-col flex-wrap relative h-auto uppercase space-y-1 max-w-[80px]'>
-      <div className='relative w-full h-full flex flex-col  border border-blue-500'>
+    <nav className='flex flex-col flex-wrap relative h-auto uppercase space-y-1 max-w-[36px] md:max-w-[44px] lg:max-w-[60px]'>
+      <div className='relative w-full h-full flex flex-col'>
         <button
           className='uppercase text-left hover:text-blue-500'
           onClick={() => setNavOpen(true)}

@@ -14,13 +14,13 @@ const Nav = ({ className }: NavProps) => {
 
   const items = checkout ? checkout.lineItems : []
 
-  const quantity = items.reduce((total, item) => {
-    return total + item.quantity
-  }, 0)
+  // const quantity = items.reduce((total, item) => {
+  //   return total + item.quantity
+  // }, 0)
 
   return (
     <nav
-      className={`${className} text-4xl flex fixed z-10 bg-white items-start pt-2  justify-between h-auto w-1/2`}
+      className={`${className} md:text-[20px] lg:text-[28px] xl:text-3xl flex fixed z-10 bg-white items-start pt-2  justify-between h-auto w-1/2`}
     >
       <Link to='/' className='hover:text-red-500 '>
         about
