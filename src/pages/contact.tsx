@@ -13,21 +13,30 @@ type ContactType = {
 const contact = ({ data: { contacts } }) => {
   return (
     <Layout>
-      <main className='md:w-1/2'>
-        <ul className='space-y-6 text-3xl'>
-          {contacts.edges.map((contact: ContactType) => {
+      <main className='md:w-1/2 global-text-sizes'>
+        <ul className='space-y-6 '>
+          {contacts.edges.map((contact: ContactType, i) => {
             return (
               <li key={contact.node.id}>
                 <h2>{contact.node.title}:</h2>
                 <a
                   href={`mailto:${contact.node.emailAddress}`}
-                  className='hover:text-pink-600'
+                  className={`${
+                    i === 0
+                      ? 'hover:text-clpink'
+                      : i === 1
+                      ? 'hover:text-clgreen'
+                      : 'hover:text-clorange'
+                  } hover:underline`}
                 >
                   {contact.node.emailAddress}
                 </a>
               </li>
             )
           })}
+          <li className='hover:text-clorange hover:underline'>
+            <a href='#'>TERMS & CONDITIONS</a>
+          </li>
         </ul>
       </main>
     </Layout>

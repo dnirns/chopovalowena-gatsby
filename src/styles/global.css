@@ -26,3 +26,9 @@ fieldset {
 input {
   font-family: chopova-lowena;
 }
+
+@layer components {
+  .global-text-sizes {
+    @apply md:text-[1.2em] lg:text-[1.6em]  xl:text-[1.8em] 2xl:text-[2.3em];
+  }
+}

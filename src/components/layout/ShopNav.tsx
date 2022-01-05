@@ -1,6 +1,7 @@
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import React, { useState } from 'react'
 import slugify from '@sindresorhus/slugify'
+import { useLocation } from '@reach/router'
 
 interface ShopNavProps {
   title: string
@@ -20,7 +21,7 @@ const ShopNav = ({ title }: ShopNavProps) => {
   const [navOpen, setNavOpen] = useState(false)
   const [selectedProductType, setSelectedProductType] = useState('')
 
-  console.log(selectedProductType)
+  const location = useLocation()
 
   const handleSelect = (productType: string) => {
     setSelectedProductType(productType.toLowerCase())
@@ -28,10 +29,10 @@ const ShopNav = ({ title }: ShopNavProps) => {
   }
 
   return (
-    <nav className='flex flex-col flex-wrap relative h-auto uppercase space-y-1 max-w-[36px] md:max-w-[44px] lg:max-w-[60px]'>
+    <nav className='flex flex-col flex-wrap relative h-auto uppercase max-w-[2.2em] '>
       <div className='relative w-full h-full flex flex-col'>
         <button
-          className='uppercase text-left hover:text-blue-500'
+          className='uppercase text-left hover:text-clyellow'
           onClick={() => setNavOpen(true)}
         >
           {title}
@@ -39,7 +40,7 @@ const ShopNav = ({ title }: ShopNavProps) => {
         <div
           className={`${
             navOpen ? 'block' : 'hidden'
-          } flex flex-col text-left pt-2 bg-white leading-none space-y-1 relative `}
+          } flex flex-col texts-left bg-white leading-none space-y-1 relative `}
           onMouseLeave={() => setNavOpen(false)}
         >
           <div></div>
@@ -47,7 +48,7 @@ const ShopNav = ({ title }: ShopNavProps) => {
             key='All'
             className=''
             to='/products/'
-            activeClassName='text-violet-500 font-bold'
+            activeClassName='text-clyellow '
             onClick={() => handleSelect('All')}
           >
             All
@@ -56,9 +57,9 @@ const ShopNav = ({ title }: ShopNavProps) => {
           {productTypes.map((name) => (
             <Link
               key={name}
-              className='hover:text-pink-500'
+              className='hover:text-clyellow'
               to={`/products/${slugify(name)}`}
-              activeClassName='text-violet-500 font-bold '
+              activeClassName='text-clyellow '
               onClick={() => handleSelect(name)}
             >
               {name}

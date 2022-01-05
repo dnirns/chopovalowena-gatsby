@@ -8,7 +8,7 @@ interface ProductListingProps {
 
 const ProductListing = ({ products }: ProductListingProps) => {
   return (
-    <div className='sm:grid gap-2 sm:grid-cols-3 lg:grid-cols-3'>
+    <div className='grid gap-2 grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
       {products.map(
         (product, index) =>
           product.totalInventory > 0 && (

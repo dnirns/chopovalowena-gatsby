@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import { GalleryType } from '../../../types'
+import { useLocation } from '@reach/router'
 
 interface GalleryNavProps {
   title: string
@@ -39,11 +40,15 @@ const GalleryNav = ({ title }: GalleryNavProps) => {
     {}
   )
 
+  const location = useLocation()
+
   return (
-    <nav className='flex flex-col flex-wrap relative h-auto uppercase space-y-4'>
+    <nav className='flex flex-col flex-wrap relative h-auto uppercase space-y-4 '>
       <div className='relative w-full h-full flex flex-col text-left'>
         <button
-          className='uppercase text-left hover:text-blue-500'
+          className={`${
+            location.pathname.includes('gallery') && 'text-clpink'
+          } uppercase text-left hover:text-clpink  `}
           onClick={() => setNavOpen(true)}
         >
           {title}
@@ -51,7 +56,7 @@ const GalleryNav = ({ title }: GalleryNavProps) => {
         <div
           className={`${
             navOpen ? 'block' : 'hidden'
-          } flex flex-col relative pt-2 bg-white left-0  space-y-1 `}
+          } flex flex-col relative pt-0 bg-white left-0  space-y-1 `}
           onMouseLeave={() => setNavOpen(false)}
         >
           {Object.keys(reducedSeasons).map((season, i) => {
@@ -60,8 +65,8 @@ const GalleryNav = ({ title }: GalleryNavProps) => {
                 <li
                   onClick={() => setSelectedSeason(season)}
                   className={`${
-                    season === selectedSeason && 'text-blue-500'
-                  } hover:text-blue-500 hover:cursor-pointer hover`}
+                    season === selectedSeason && 'text-clpink'
+                  } hover:text-clpink   hover:cursor-pointer hover`}
                 >
                   {season}
                 </li>
@@ -77,7 +82,7 @@ const GalleryNav = ({ title }: GalleryNavProps) => {
                             gallery.season === selectedSeason
                               ? 'block'
                               : 'hidden'
-                          } px-2 py-1 hover:text-blue-500 `}
+                          } px-2 py-1 hover:text-clpink  `}
                         >
                           {gallery.galleryType}
                         </Link>

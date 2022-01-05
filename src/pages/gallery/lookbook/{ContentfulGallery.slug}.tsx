@@ -7,10 +7,9 @@ import Seo from '../../../components/elements/Seo'
 
 const index = ({ data: { page } }: GalleryQueryType) => {
   return (
-    <Layout>
+    <Layout noMobileMargin>
       <Seo title={`Chopova Lowena ${page.season} ${page.galleryType}`} />
-      <h1 className='text-5xl mb-4'>{page.header}</h1>
-      <div className='grid grid-cols-3 gap-4'>
+      <div className='grid md:grid-cols-4 md:gap-5 mx-0'>
         {page.images.map((image, index) => (
           <GatsbyImage
             key={index}

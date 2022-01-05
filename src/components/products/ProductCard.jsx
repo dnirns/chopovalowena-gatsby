@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { getShopifyImage } from 'gatsby-source-shopify'
+import { ProductType } from '../../../types'
 
 const ProductCard = ({ product, eager }) => {
   const { title, priceRangeV2, slug, images, storefrontImages } = product
@@ -26,7 +28,7 @@ const ProductCard = ({ product, eager }) => {
 
   return (
     <Link to={slug} aria-label={`View ${title} product page`}>
-      <div className=' hover:scale-[101%] duration-150 flex flex-col item-center justify-center shadow-xl hover:opacity-80 shadow-violet-200/40 hover:shadow-violet-200/100 p-4 rounded-sm'>
+      <div className='hover:opacity-80 p-4'>
         <GatsbyImage
           alt={images[0]?.altText || title}
           image={images[0]?.gatsbyImageData || storefrontImageData}

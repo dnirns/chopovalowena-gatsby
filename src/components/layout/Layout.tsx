@@ -4,9 +4,10 @@ import Seo from '../elements/Seo'
 
 interface LayoutProps {
   children: React.ReactNode
+  noMobileMargin?: boolean
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, noMobileMargin }: LayoutProps) => {
   return (
     <div className='flex flex-col'>
       <Seo />
@@ -14,7 +15,13 @@ const Layout = ({ children }: LayoutProps) => {
         <Nav className='uppercase' />
       </div>
 
-      <main className='pt-20 mx-4 md:mx-8 uppercase'>{children}</main>
+      <main
+        className={`${
+          noMobileMargin ? 'mx-0' : 'mx-4'
+        } pt-20  md:mx-8 uppercase`}
+      >
+        {children}
+      </main>
     </div>
   )
 }
