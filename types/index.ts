@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // Shopify Types
 
 export type LineItemType = {
@@ -67,6 +68,9 @@ export type GalleryQueryType = {
       header: string
       images: {
         gatsbyImageData
+        file: {
+          fileName: string
+        }
       }[]
     }
   }

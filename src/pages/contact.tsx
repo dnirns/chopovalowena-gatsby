@@ -13,7 +13,7 @@ type ContactType = {
 const contact = ({ data: { contacts } }) => {
   return (
     <Layout>
-      <main className='md:w-1/2 global-text-sizes'>
+      <main className='md:w-1/2 text-2xl  md:global-text-sizes'>
         <ul className='space-y-6 '>
           {contacts.edges.map((contact: ContactType, i) => {
             return (

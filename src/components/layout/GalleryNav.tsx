@@ -5,9 +5,10 @@ import { useLocation } from '@reach/router'
 
 interface GalleryNavProps {
   title: string
+  toggleNav?: () => void
 }
 
-const GalleryNav = ({ title }: GalleryNavProps) => {
+const GalleryNav = ({ title, toggleNav }: GalleryNavProps) => {
   const { allContentfulGallery } = useStaticQuery(graphql`
     query {
       allContentfulGallery(sort: { fields: slug, order: DESC }) {
@@ -43,7 +44,7 @@ const GalleryNav = ({ title }: GalleryNavProps) => {
   const location = useLocation()
 
   return (
-    <nav className='flex flex-col flex-wrap relative h-auto uppercase space-y-4 '>
+    <nav className='flex flex-col flex-wrap relative h-auto uppercase  '>
       <div className='relative w-full h-full flex flex-col text-left'>
         <button
           className={`${
@@ -66,7 +67,7 @@ const GalleryNav = ({ title }: GalleryNavProps) => {
                   onClick={() => setSelectedSeason(season)}
                   className={`${
                     season === selectedSeason && 'text-clpink'
-                  } hover:text-clpink   hover:cursor-pointer hover`}
+                  } hover:text-clpink hover:cursor-pointer hover`}
                 >
                   {season}
                 </li>
@@ -82,7 +83,8 @@ const GalleryNav = ({ title }: GalleryNavProps) => {
                             gallery.season === selectedSeason
                               ? 'block'
                               : 'hidden'
-                          } px-2 py-1 hover:text-clpink  `}
+                          } px-2 pt-1 hover:text-clpink  `}
+                          onClick={toggleNav}
                         >
                           {gallery.galleryType}
                         </Link>

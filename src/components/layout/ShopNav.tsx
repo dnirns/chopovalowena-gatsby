@@ -1,13 +1,13 @@
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import React, { useState } from 'react'
 import slugify from '@sindresorhus/slugify'
-import { useLocation } from '@reach/router'
 
 interface ShopNavProps {
   title: string
+  toggleNav?: () => void
 }
 
-const ShopNav = ({ title }: ShopNavProps) => {
+const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
   const {
     allShopifyProduct: { productTypes },
   } = useStaticQuery(graphql`
@@ -21,10 +21,9 @@ const ShopNav = ({ title }: ShopNavProps) => {
   const [navOpen, setNavOpen] = useState(false)
   const [selectedProductType, setSelectedProductType] = useState('')
 
-  const location = useLocation()
-
   const handleSelect = (productType: string) => {
     setSelectedProductType(productType.toLowerCase())
+    toggleNav()
     setNavOpen(false)
   }
 
@@ -40,20 +39,9 @@ const ShopNav = ({ title }: ShopNavProps) => {
         <div
           className={`${
             navOpen ? 'block' : 'hidden'
-          } flex flex-col texts-left bg-white leading-none space-y-1 relative `}
+          } flex flex-col texts-left bg-white leading-none relative `}
           onMouseLeave={() => setNavOpen(false)}
         >
-          <div></div>
-          <Link
-            key='All'
-            className=''
-            to='/products/'
-            activeClassName='text-clyellow '
-            onClick={() => handleSelect('All')}
-          >
-            All
-          </Link>
-
           {productTypes.map((name) => (
             <Link
               key={name}
@@ -65,6 +53,15 @@ const ShopNav = ({ title }: ShopNavProps) => {
               {name}
             </Link>
           ))}
+          <Link
+            key='All'
+            className='hover:text-clyellow'
+            to='/products/'
+            activeClassName='text-clyellow '
+            onClick={() => handleSelect('All')}
+          >
+            All
+          </Link>
         </div>
       </div>
     </nav>

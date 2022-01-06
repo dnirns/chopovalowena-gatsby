@@ -17,7 +17,10 @@ const stockists = ({ data: { stockists } }) => {
         <ul className='space-y-6'>
           {stockists.edges.map((country: Stockist) => {
             return (
-              <li className=' global-text-sizes' key={country.node.id}>
+              <li
+                className='text-2xl md:global-text-sizes'
+                key={country.node.id}
+              >
                 <h2 className='underline pb-1'>{country.node.country}</h2>
                 <ul className='leading-tight'>
                   {country.node.stores.map((store) => {
