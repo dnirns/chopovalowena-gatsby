@@ -187,12 +187,12 @@ export default function Product({ data: { product } }: ProductsProps) {
 }
 
 export const query = graphql`
-  query ($id: String!, $productType: String!) {
+  # query ($id: String!, $productType: String!) {
+  query ($id: String!) {
     product: shopifyProduct(id: { eq: $id }) {
       title
       description
       productType
-
       productTypeSlug: gatsbyPath(
         filePath: "/products/{ShopifyProduct.productType}"
       )
@@ -230,13 +230,13 @@ export const query = graphql`
         id
       }
     }
-    suggestions: allShopifyProduct(
-      limit: 3
-      filter: { productType: { eq: $productType }, id: { ne: $id } }
-    ) {
-      nodes {
-        ...ProductCard
-      }
-    }
+    # suggestions: allShopifyProduct(
+    #   limit: 3
+    #   filter: { productType: { eq: $productType }, id: { ne: $id } }
+    # ) {
+    #   nodes {
+    #     ...ProductCard
+    #   }
+    # }
   }
 `

@@ -1,6 +1,6 @@
 import React from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import XIcon from '../../icons/XIcon'
+import XIcon from '../elements/XIcon'
 
 interface GallerySliderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

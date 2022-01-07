@@ -8,7 +8,7 @@ import { ProductType } from '../../../types'
 const ProductCard = ({ product, eager }) => {
   const { title, priceRangeV2, slug, images, storefrontImages } = product
 
-  const price = priceRangeV2?.minVariantPrice.amount
+  // const price = priceRangeV2?.minVariantPrice.amount
 
   let storefrontImageData = {}
 
@@ -27,17 +27,14 @@ const ProductCard = ({ product, eager }) => {
   }
 
   return (
-    <Link to={slug} aria-label={`View ${title} product page`}>
-      <div className='hover:opacity-80 p-4'>
-        <GatsbyImage
-          alt={images[0]?.altText || title}
-          image={images[0]?.gatsbyImageData || storefrontImageData}
-          loading={eager ? 'eager' : 'lazy'}
-          placeholder='blurred'
-          objectFit='contain'
-        />
-      </div>
-    </Link>
+    <GatsbyImage
+      alt={images[0]?.altText || title}
+      image={images[0]?.gatsbyImageData || storefrontImageData}
+      loading={eager ? 'eager' : 'lazy'}
+      placeholder='blurred'
+      objectFit='contain'
+      className='hover:opacity-90 hover:cursor-pointer'
+    />
   )
 }
 
@@ -47,6 +44,10 @@ export const query = graphql`
   fragment ProductCard on ShopifyProduct {
     id
     title
+    totalInventory
+    tags
+    description
+    productType
     slug: gatsbyPath(
       filePath: "/products/{ShopifyProduct.productType}/{ShopifyProduct.handle}"
     )
@@ -59,6 +60,26 @@ export const query = graphql`
       minVariantPrice {
         amount
       }
+      maxVariantPrice {
+        amount
+      }
+    }
+    storefrontId
+    variants {
+      availableForSale
+      inventoryQuantity
+      storefrontId
+      title
+      price
+      selectedOptions {
+        name
+        value
+      }
+    }
+    options {
+      name
+      values
+      id
     }
   }
 `

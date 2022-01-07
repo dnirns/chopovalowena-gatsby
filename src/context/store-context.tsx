@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, createContext, ReactChild } from 'react'
-import fetch from 'isomorphic-fetch'
 import Client from 'shopify-buy'
 import { LineItemType } from '../../types'
 

@@ -21,17 +21,25 @@ const AddToCart = ({
     addVariantToCart(variantId, quantity)
   }
 
+  const disabled = !available || !variantId || !quantity || loading
+
   return (
     <button
       type='submit'
       className={`${
-        available ? 'bg-violet-600 hover:opacity-80' : 'bg-neutral-300'
-      }  p-3  text-white text-sm `}
+        !disabled ? 'bg-clpink hover:bg-opacity-80' : 'bg-violet-200'
+      }  pt-3 pb-2 px-2  text-white text-lg md:text-base w-full uppercase my-8 `}
       onClick={addToCart}
-      disabled={!available || loading}
+      disabled={disabled}
       {...props}
     >
-      {available ? 'Add to Cart' : 'Out of Stock'}
+      {loading ? (
+        <span className='ml-2'>Loading...</span>
+      ) : available ? (
+        'Add to Cart'
+      ) : (
+        'Out of Stock'
+      )}
     </button>
   )
 }

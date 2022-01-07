@@ -33,7 +33,6 @@ export const query = graphql`
     ) {
       nodes {
         ...ProductCard
-        totalInventory
       }
       pageInfo {
         hasNextPage

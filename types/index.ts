@@ -29,6 +29,7 @@ type VariantType = {
 export type ProductType = {
   id: string
   title: string
+  tags: string[]
   handle: string
   totalInventory: number
   priceRangeV2: {

@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { Link } from 'gatsby'
 import { StoreContext } from '../../context/store-context'
+import { usePathname } from '../../utils/usePathname'
 import ShopNav from './ShopNav'
 import GalleryNav from './GalleryNav'
 import ToggleButton from '../elements/ToggleButton'
 import Logo from '../elements/Logo'
-import { usePathname } from '../../utils/usePathname'
 
 interface NavProps {
   className?: string
