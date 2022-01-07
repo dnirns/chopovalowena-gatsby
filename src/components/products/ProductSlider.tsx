@@ -21,7 +21,6 @@ const ProductSlider = ({
 }: ProductSliderProps) => {
   const {
     variants,
-    priceRangeV2,
     images,
     options,
     title,
@@ -29,9 +28,39 @@ const ProductSlider = ({
     images: [firstImage],
   } = product
 
-  const [selectedImage, setSelectedImage] = useState(0)
+  // ===== Context ===== //
+  const { client } = useContext(StoreContext)
 
-  // cycles through image carousel - 1 = increment, -1 = decrement
+  // ====== State ====== //
+  const availableVariants = variants.filter(
+    (variant) => variant.availableForSale
+  )
+
+  const [variant, setVariant] = useState({ ...availableVariants[0] })
+
+  const productVariant =
+    client.product.helpers.variantForOptions(product, variant) || variant
+
+  const [available, setAvailable] = useState(productVariant.availableForSale)
+  const [selectedImage, setSelectedImage] = useState(0)
+  const [quantity, setQuantity] = useState(1)
+
+  const availableQuantities = Array.from(
+    Array(variant.inventoryQuantity).keys()
+  ).map((i) => i + 1)
+
+  // ====== Functions ====== //
+
+  // Change Variants
+  const handleOptionChange = (value) => {
+    if (value === '') {
+      return
+    }
+    const selectedVariant = variants.find((variant) => variant.title === value)
+    setVariant({ ...selectedVariant })
+  }
+
+  // Cycle through image carousel - (1) = Increment, (-1) = Decrement
   const cycleImages = (direction: number) => {
     const newIndex = selectedImage + direction
     if (newIndex < 0) {
@@ -43,27 +72,7 @@ const ProductSlider = ({
     }
   }
 
-  // FROM LINE ITEM
-
-  const { client } = useContext(StoreContext)
-
-  const availableVariants = variants.filter(
-    (variant) => variant.availableForSale
-  )
-
-  const [variant, setVariant] = useState({ ...availableVariants[0] })
-
-  const [quantity, setQuantity] = useState(1)
-
-  const availableQuantities = Array.from(
-    Array(variant.inventoryQuantity).keys()
-  ).map((i) => i + 1)
-
-  const productVariant =
-    client.product.helpers.variantForOptions(product, variant) || variant
-
-  const [available, setAvailable] = useState(productVariant.availableForSale)
-
+  // Get Availability of Product
   const checkAvailablity = useCallback(
     (productId) => {
       client.product.fetch(productId).then((fetchedProduct) => {
@@ -79,15 +88,6 @@ const ProductSlider = ({
     },
     [productVariant.storefrontId, client.product]
   )
-
-  const handleOptionChange = (value) => {
-    if (value === '') {
-      return
-    }
-
-    const selectedVariant = variants.find((variant) => variant.title === value)
-    setVariant({ ...selectedVariant })
-  }
 
   useEffect(() => {
     checkAvailablity(product.storefrontId)
@@ -137,28 +137,7 @@ const ProductSlider = ({
       />
 
       {/* ===== INFO ===== */}
-      <section className='space-y-4'>
-        <h4>PRODUCT DETAILS</h4>
-        <p className='cl-light text-sm'>{description}</p>
-
-        <h4>SHIPPING</h4>
-        <p className='cl-light text-sm'>
-          Shipping to the UK, EU, USA and Canada only. Shipping is calculated at
-          the checkout. Customs and Duties Not Included.
-        </p>
-
-        <h4>CUSTOMER CARE</h4>
-        <p className='cl-light text-sm'>
-          Please note some items are made from upcycled, vintage and deadstock
-          textiles and leather. Please be aware imperfections may be present.
-          This is the beauty of sustainability! Please be aware some buckles can
-          scratch the leather. Please take care when trying on our skirts. Any
-          skirts with damages are non-returnable. Leather will soften over time.
-          Natural leather belts on certain styles will become darker when
-          exposed to light. Please see care labels for compositions and care
-          information or email eshop@chopovalowena.com for more information.
-        </p>
-      </section>
+      <ProductText description={description} />
 
       {/* ==== SELECT VARIANT (SIZE) ====  */}
       {hasVariants && (
@@ -182,3 +161,31 @@ const ProductSlider = ({
 }
 
 export default ProductSlider
+
+// eslint-disable-next-line react/prop-types
+const ProductText = ({ description }) => {
+  return (
+    <section className='space-y-4'>
+      <h4>PRODUCT DETAILS</h4>
+      <p className='cl-light text-sm'>{description}</p>
+
+      <h4>SHIPPING</h4>
+      <p className='cl-light text-sm'>
+        Shipping to the UK, EU, USA and Canada only. Shipping is calculated at
+        the checkout. Customs and Duties Not Included.
+      </p>
+
+      <h4>CUSTOMER CARE</h4>
+      <p className='cl-light text-sm'>
+        Please note some items are made from upcycled, vintage and deadstock
+        textiles and leather. Please be aware imperfections may be present. This
+        is the beauty of sustainability! Please be aware some buckles can
+        scratch the leather. Please take care when trying on our skirts. Any
+        skirts with damages are non-returnable. Leather will soften over time.
+        Natural leather belts on certain styles will become darker when exposed
+        to light. Please see care labels for compositions and care information
+        or email eshop@chopovalowena.com for more information.
+      </p>
+    </section>
+  )
+}

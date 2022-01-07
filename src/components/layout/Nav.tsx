@@ -18,6 +18,7 @@ const Nav = ({ className, menuOpen, toggleMenu }: NavProps) => {
 
   const items = checkout ? checkout.lineItems : []
 
+  // ==== Keep for Cart Icon  ==== //
   const quantity = items.reduce((total, item) => {
     return total + item.quantity
   }, 0)
@@ -44,7 +45,7 @@ const Nav = ({ className, menuOpen, toggleMenu }: NavProps) => {
   return (
     <>
       <nav
-        className={`${className} global-text-sizes hidden md:flex fixed z-10 bg-white pt-2 pr-4 h-auto w-full justify-end `}
+        className={`${className} global-text-sizes hidden md:flex fixed z-20 bg-white pt-2 pr-4 h-auto w-full justify-end `}
       >
         <div className='flex w-1/2 justify-evenly'>
           <NavItems />

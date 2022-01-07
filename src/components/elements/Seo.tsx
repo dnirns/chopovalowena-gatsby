@@ -49,7 +49,7 @@ const Seo = ({
     twitter,
   } = siteMetadata
 
-  const seo = {
+  const seoData = {
     title: title || siteTitleDefault,
     description: description || siteDescription,
     url: pathname ? `${siteUrl}${pathname}` : location.href,
@@ -63,18 +63,18 @@ const Seo = ({
       titleTemplate={`%s | ${siteTitle}`}
     >
       <html lang={hrefLang} />
-      <meta name='description' content={seo.description} />
-      <meta name='image' content={seo.image} />
-      <meta property='og:title' content={seo.title} />
-      <meta property='og:url' content={seo.url} />
-      <meta property='og:description' content={seo.description} />
-      <meta property='og:image' content={seo.image} />
+      <meta name='description' content={seoData.description} />
+      <meta name='image' content={seoData.image} />
+      <meta property='og:title' content={seoData.title} />
+      <meta property='og:url' content={seoData.url} />
+      <meta property='og:description' content={seoData.description} />
+      <meta property='og:image' content={seoData.image} />
       <meta property='og:type' content='website' />
       <meta name='twitter:card' content='summary_large_image' />
-      <meta name='twitter:title' content={seo.title} />
-      <meta name='twitter:url' content={seo.url} />
-      <meta name='twitter:description' content={seo.description} />
-      <meta name='twitter:image' content={seo.image} />
+      <meta name='twitter:title' content={seoData.title} />
+      <meta name='twitter:url' content={seoData.url} />
+      <meta name='twitter:description' content={seoData.description} />
+      <meta name='twitter:image' content={seoData.image} />
       <meta name='twitter:creator' content={twitter} />
       <link
         rel='icon'

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../../components/layout/Layout'
 import ProductListing from '../../components/products/ProductListing'
-import Seo from '../../components/elements/seo'
+import Seo from '../../components/elements/Seo'
 import { ProductType } from '../../../types'
 
 interface ProductsProps {
@@ -13,6 +13,7 @@ interface ProductsProps {
   }
 }
 const Products = ({ data: { products } }: ProductsProps) => {
+  console.log(products.nodes)
   return (
     <Layout>
       <Seo
@@ -29,6 +30,7 @@ export default Products
 export const query = graphql`
   {
     products: allShopifyProduct(
+      filter: { totalInventory: { gt: 0 } }
       sort: { fields: publishedAt, order: ASC } # limit: 24
     ) {
       nodes {

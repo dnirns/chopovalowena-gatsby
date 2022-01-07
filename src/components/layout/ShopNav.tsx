@@ -12,7 +12,7 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
     allShopifyProduct: { productTypes },
   } = useStaticQuery(graphql`
     query {
-      allShopifyProduct {
+      allShopifyProduct(filter: { totalInventory: { gt: 0 } }) {
         productTypes: distinct(field: productType)
       }
     }
@@ -23,7 +23,7 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
 
   const handleSelect = (productType: string) => {
     setSelectedProductType(productType.toLowerCase())
-    toggleNav()
+    toggleNav && toggleNav()
     setNavOpen(false)
   }
 

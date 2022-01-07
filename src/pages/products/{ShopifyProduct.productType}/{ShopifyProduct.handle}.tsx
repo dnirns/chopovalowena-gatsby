@@ -5,7 +5,7 @@ import { GatsbyImage, getSrc } from 'gatsby-plugin-image'
 import { StoreContext } from '../../../context/store-context'
 import AddToCart from '../../../components/elements/AddToCart'
 import { formatPrice } from '../../../utils/format-price'
-import Seo from '../../../components/elements/seo'
+import Seo from '../../../components/elements/Seo'
 import QuantitySelect from '../../../components/elements/QuantitySelect'
 
 import { ProductType } from '../../../../types'
