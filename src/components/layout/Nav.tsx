@@ -4,7 +4,7 @@ import { StoreContext } from '../../context/store-context'
 import { usePathname } from '../../utils/usePathname'
 import ShopNav from './ShopNav'
 import GalleryNav from './GalleryNav'
-import ToggleButton from '../elements/ToggleButton'
+import { MenuButton, CloseButton } from '../elements/ToggleButtons'
 import Logo from '../elements/Logo'
 
 interface NavProps {
@@ -45,24 +45,38 @@ const Nav = ({ className, menuOpen, toggleMenu }: NavProps) => {
   return (
     <>
       <nav
-        className={`${className} global-text-sizes hidden md:flex fixed z-20 bg-white pt-2 pr-4 h-auto w-full justify-end `}
+        className={`${className} global-text-sizes hidden md:flex fixed z-20 bg-white pt-2 px-2 h-auto w-full justify-end `}
       >
         <div className='flex w-1/2 justify-evenly'>
           <NavItems />
         </div>
       </nav>
       {/* ===== mobile nav ===== */}
-      <div className='flex justify-between w-full md:hidden z-20 uppercase'>
+      <div className='flex justify-between w-full md:hidden z-20 uppercase '>
         <h1 className={`${titleColour} text-6xl pt-6 px-4`}>{pageTitle}</h1>
-        <ToggleButton onClick={toggleMenu} open={menuOpen} />
+
+        {!menuOpen && (
+          <MenuButton
+            onClick={toggleMenu}
+            className='z-40 fixed top-0 right-0 '
+          />
+        )}
 
         <nav
           className={`${
             menuOpen ? 'translate-x-0' : 'translate-x-[100%]'
-          } transition ease-in-out duration-300 fixed top-0 left-0 h-screen w-screen bg-white z-20 flex flex-col text-5xl p-6`}
+          } transition ease-in-out duration-300 fixed top-0 left-0 h-full w-screen bg-white z-20 flex flex-col text-5xl p-6 mb-16 no-scroll `}
         >
-          <NavItems onClick={toggleMenu} />
-          <Logo className='self-center absolute bottom-6' />
+          <CloseButton
+            onClick={toggleMenu}
+            className='absolute top-0 right-0'
+          />
+
+          <div className='absolute h-full overflow-y-scroll flex flex-col w-full'>
+            <NavItems onClick={toggleMenu} />
+          </div>
+
+          <Logo className='self-center absolute bottom-0 bg-white py-4' />
         </nav>
       </div>
     </>

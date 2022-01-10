@@ -5,6 +5,7 @@ import { GalleryQueryType } from '../../../../types'
 import Layout from '../../../components/layout/Layout'
 import GallerySlider from '../../../components/gallery/GallerySlider'
 import Seo from '../../../components/elements/Seo'
+import { cycleImages } from '../../../utils/cycleImages'
 
 const index = ({ data: { page } }: GalleryQueryType) => {
   const [selectedImage, setSelectedImage] = useState<number | null>(0)
@@ -13,6 +14,10 @@ const index = ({ data: { page } }: GalleryQueryType) => {
   const handleImageClick = (index: number) => {
     setSliderOpen(true)
     setSelectedImage(index)
+  }
+
+  const handleCycleImages = (increment: number) => {
+    return cycleImages(increment, page.images, selectedImage, setSelectedImage)
   }
 
   return (
@@ -24,6 +29,8 @@ const index = ({ data: { page } }: GalleryQueryType) => {
         image={page.images[selectedImage].gatsbyImageData}
         toggleSlider={() => setSliderOpen(false)}
         alt={`Chopova Lowena ${page.season} Look ${selectedImage + 1}`}
+        nextImage={() => handleCycleImages(1)}
+        previousImage={() => handleCycleImages(-1)}
       />
 
       <div className='grid md:grid-cols-4 md:gap-5 mx-0'>

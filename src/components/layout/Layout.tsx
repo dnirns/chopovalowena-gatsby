@@ -7,9 +7,10 @@ import { usePathname } from '../../utils/usePathname'
 interface LayoutProps {
   children: React.ReactNode
   noMobileMargin?: boolean
+  noMargin?: boolean
 }
 
-const Layout = ({ children, noMobileMargin }: LayoutProps) => {
+const Layout = ({ children, noMobileMargin, noMargin }: LayoutProps) => {
   const pathname = usePathname()
 
   const [menuOpen, setMenuOpen] = useState(false)
@@ -28,9 +29,9 @@ const Layout = ({ children, noMobileMargin }: LayoutProps) => {
       </div>
 
       <main
-        className={`${
-          noMobileMargin ? 'mx-0' : 'mx-4'
-        } pt-20 md:mx-8 uppercase`}
+        className={`${noMobileMargin && 'mx-0 md:mx-4'} ${
+          noMargin ? 'mx-0' : 'mx-4'
+        } pt-10 md:pt-20 uppercase`}
       >
         {children}
       </main>

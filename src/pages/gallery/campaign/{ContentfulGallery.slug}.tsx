@@ -4,19 +4,16 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { GalleryQueryType } from '../../../../types'
 import Layout from '../../../components/layout/Layout'
 import Seo from '../../../components/elements/Seo'
-import { renderRichText } from 'gatsby-source-contentful/rich-text'
-import { BLOCKS } from '@contentful/rich-text-types'
 
 const index = ({ data: { page } }: GalleryQueryType) => {
-  console.log(page)
-
   return (
-    <Layout>
+    <Layout noMargin={true}>
       <Seo title={`Chopova Lowena ${page.season} ${page.galleryType}`} />
-      <p className='text-8xl '>{page.header}</p>
-      <div className='grid grid-cols-2 gap-4'>
+
+      <main className='md:w-1/2 z-20 md:absolute top-0'>
         {page.images.map((image, index) => (
           <GatsbyImage
+            className='col-span-1 col-start-1'
             key={index}
             objectFit='fill'
             alt={` Chopova Lowena ${page.season} ${page.galleryType} image #${
@@ -26,13 +23,13 @@ const index = ({ data: { page } }: GalleryQueryType) => {
           />
         ))}
 
-        <ul>
+        <ul className='text-xl md:text-2xl space-y-0 leading-tight m-4'>
           {page.credits &&
             page.credits.map((credit: string, i: number) => (
               <li key={i}>{credit}</li>
             ))}
         </ul>
-      </div>
+      </main>
     </Layout>
   )
 }

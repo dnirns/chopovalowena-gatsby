@@ -2,11 +2,11 @@ import React, { useState, useContext, useEffect, useCallback } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { StoreContext } from '../../context/store-context'
 import { ProductType } from '../../../types'
-
 import QuantitySelect from '../../components/elements/QuantitySelect'
 import VariantSelect from './VariantSelect'
 import AddToCart from '../../components/elements/AddToCart'
-import XIcon from '../elements/XIcon'
+import { CloseButton } from '../elements/ToggleButtons'
+import { cycleImages } from '../../utils/cycleImages'
 
 interface ProductSliderProps {
   product: ProductType | null
@@ -60,18 +60,6 @@ const ProductSlider = ({
     setVariant({ ...selectedVariant })
   }
 
-  // Cycle through image carousel - (1) = Increment, (-1) = Decrement
-  const cycleImages = (direction: number) => {
-    const newIndex = selectedImage + direction
-    if (newIndex < 0) {
-      setSelectedImage(product.images.length - 1)
-    } else if (newIndex >= product.images.length) {
-      setSelectedImage(0)
-    } else {
-      setSelectedImage(newIndex)
-    }
-  }
-
   // Get Availability of Product
   const checkAvailablity = useCallback(
     (productId) => {
@@ -99,6 +87,10 @@ const ProductSlider = ({
     variant,
   ])
 
+  const handleCycleImages = (increment: number) => {
+    return cycleImages(increment, images, selectedImage, setSelectedImage)
+  }
+
   const hasVariants = variants.length > 1
   const hasImages = images.length > 0
 
@@ -106,19 +98,14 @@ const ProductSlider = ({
     <section
       className={`${
         !showSlider ? 'translate-x-[-100%]' : 'translate-x-[0]'
-      } fixed top-0 left-0 z-20 h-screen w-full md:w-1/2 bg-white transition duration-300 overflow-scroll`}
+      } fixed top-0 left-0 z-20 h-screen w-full md:w-1/2 bg-white transition duration-300 overflow-auto no-scrollbar`}
     >
       {/* ==== IMAGE CAROUSEL ===== */}
       <div
         className='w-full flex items-center justify-center hover:opacity-90 cursor-pointer pt-16 px-2'
-        onClick={() => cycleImages(1)}
+        onClick={() => handleCycleImages(1)}
       >
-        <button
-          onClick={closeSlider}
-          className=' absolute top-4 left-4 hover:opacity-80'
-        >
-          <XIcon className='w-7 h-7' />
-        </button>
+        <CloseButton onClick={closeSlider} className='absolute top-0 left-0' />
 
         {hasImages && (
           <GatsbyImage

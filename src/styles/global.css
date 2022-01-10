@@ -36,3 +36,17 @@ input {
     @apply md:text-[1.2em] lg:text-[1.6em]  xl:text-[1.8em] 2xl:text-[2.3em];
   }
 }
+
+/* hide scrollbar */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+html,
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
