@@ -73,6 +73,7 @@ export type GalleryQueryType = {
           fileName: string
         }
       }[]
+      credits?: string[]
     }
   }
 }

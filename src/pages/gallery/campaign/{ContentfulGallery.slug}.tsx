@@ -4,8 +4,12 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { GalleryQueryType } from '../../../../types'
 import Layout from '../../../components/layout/Layout'
 import Seo from '../../../components/elements/Seo'
+import { renderRichText } from 'gatsby-source-contentful/rich-text'
+import { BLOCKS } from '@contentful/rich-text-types'
 
 const index = ({ data: { page } }: GalleryQueryType) => {
+  console.log(page)
+
   return (
     <Layout>
       <Seo title={`Chopova Lowena ${page.season} ${page.galleryType}`} />
@@ -21,6 +25,13 @@ const index = ({ data: { page } }: GalleryQueryType) => {
             image={image.gatsbyImageData}
           />
         ))}
+
+        <ul>
+          {page.credits &&
+            page.credits.map((credit: string, i: number) => (
+              <li key={i}>{credit}</li>
+            ))}
+        </ul>
       </div>
     </Layout>
   )
@@ -42,6 +53,7 @@ export const GalleryQuery = graphql`
       images {
         gatsbyImageData
       }
+      credits
     }
   }
 `

@@ -106,7 +106,7 @@ const ProductSlider = ({
     <section
       className={`${
         !showSlider ? 'translate-x-[-100%]' : 'translate-x-[0]'
-      } fixed top-0 left-0 z-20 h-screen w-full md:w-1/2 bg-white transition duration-300 `}
+      } fixed top-0 left-0 z-20 h-screen w-full md:w-1/2 bg-white transition duration-300 overflow-scroll`}
     >
       {/* ==== IMAGE CAROUSEL ===== */}
       <div
@@ -137,7 +137,23 @@ const ProductSlider = ({
       />
 
       {/* ===== INFO ===== */}
-      <ProductText description={description} />
+
+      <div className='grid grid-cols-4 gap-2 px-2 '>
+        {/* ===== first column span 1 */}
+        <div className='col-span-1'>
+          <h4 className='md:text-sm md:leading-relaxed'>{title}</h4>
+        </div>
+        {/* ==== middle column span 2 */}
+        <ProductText description={description} />
+
+        {/* ===== right column span 1 - price */}
+
+        <div>
+          <h4 className='md:text-sm md:leading-relaxed'>
+            {productVariant.price}
+          </h4>
+        </div>
+      </div>
 
       {/* ==== SELECT VARIANT (SIZE) ====  */}
       {hasVariants && (
@@ -165,17 +181,17 @@ export default ProductSlider
 // eslint-disable-next-line react/prop-types
 const ProductText = ({ description }) => {
   return (
-    <section className='space-y-4'>
-      <h4>PRODUCT DETAILS</h4>
+    <section className='space-y-4 col-span-2 col-start-2'>
+      <h4 className='md:text-sm'>PRODUCT DETAILS</h4>
       <p className='cl-light text-sm'>{description}</p>
 
-      <h4>SHIPPING</h4>
+      <h4 className='md:text-sm'>SHIPPING</h4>
       <p className='cl-light text-sm'>
         Shipping to the UK, EU, USA and Canada only. Shipping is calculated at
         the checkout. Customs and Duties Not Included.
       </p>
 
-      <h4>CUSTOMER CARE</h4>
+      <h4 className='md:text-sm'>CUSTOMER CARE</h4>
       <p className='cl-light text-sm'>
         Please note some items are made from upcycled, vintage and deadstock
         textiles and leather. Please be aware imperfections may be present. This
