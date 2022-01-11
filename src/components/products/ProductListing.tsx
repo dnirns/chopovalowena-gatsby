@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import ProductCard from './ProductCard'
 import { ProductType } from '../../../types'
-import ProductSlider from './ProductSlider'
+import ProductSlider from '../screens/ProductSlider'
 
 interface ProductListingProps {
   products: ProductType[]

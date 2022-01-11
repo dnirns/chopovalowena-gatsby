@@ -6,15 +6,17 @@ import ShopNav from './ShopNav'
 import GalleryNav from './GalleryNav'
 import { MenuButton, CloseButton } from '../elements/ToggleButtons'
 import Logo from '../elements/Logo'
+import CartIcon from '../elements/CartIcon'
 
 interface NavProps {
   className?: string
   menuOpen: boolean
   toggleMenu: () => void
+  toggleCart: () => void
 }
 
-const Nav = ({ className, menuOpen, toggleMenu }: NavProps) => {
-  const { checkout } = useContext(StoreContext)
+const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
+  const { checkout, didJustAddToCart } = useContext(StoreContext)
 
   const items = checkout ? checkout.lineItems : []
 
@@ -45,21 +47,33 @@ const Nav = ({ className, menuOpen, toggleMenu }: NavProps) => {
   return (
     <>
       <nav
-        className={`${className} global-text-sizes hidden md:flex fixed z-20 bg-white pt-2 px-2 h-auto w-full justify-end `}
+        className={`${className} global-text-sizes hidden md:flex fixed z-20 bg-white pt-2 px-2 h-auto w-full justify-between `}
       >
-        <div className='flex w-1/2 justify-evenly'>
+        <button
+          onClick={toggleCart}
+          className='hidden md:block transition space-x-4 px-2'
+        >
+          CART -
+          <span
+            className={`${
+              didJustAddToCart ? 'text-clpink' : 'text-black'
+            } mx-2`}
+          >
+            {quantity}
+          </span>
+        </button>
+        <div className='flex w-1/2 justify-between px-2'>
           <NavItems />
         </div>
       </nav>
       {/* ===== mobile nav ===== */}
       <div className='flex justify-between w-full md:hidden z-20 uppercase '>
         <h1 className={`${titleColour} text-6xl pt-6 px-4`}>{pageTitle}</h1>
-
         {!menuOpen && (
-          <MenuButton
-            onClick={toggleMenu}
-            className='z-40 fixed top-0 right-0 '
-          />
+          <div className='z-40 fixed top-0 right-0 '>
+            <CartIcon onClick={toggleCart} />
+            <MenuButton className='h-8 w-8' onClick={toggleMenu} />
+          </div>
         )}
 
         <nav

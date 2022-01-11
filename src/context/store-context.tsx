@@ -20,7 +20,7 @@ interface Context {
     webUrl?: string
   }
   cart: any[]
-  isOpen: boolean
+  // isCartOpen: boolean
   loading: boolean
   onOpen: () => void
   onClose: () => void
@@ -38,7 +38,7 @@ interface Context {
 //  Default Context
 const defaultValues: Context = {
   cart: [],
-  isOpen: false,
+  // isCartOpen: false,
   loading: false,
   onOpen: () => {},
   onClose: () => {},
@@ -118,7 +118,7 @@ export const StoreProvider = ({ children }: any) => {
         setCheckout(res)
         setLoading(false)
         setAddedToCart(true)
-        setTimeout(() => setAddedToCart(false), 3000)
+        setTimeout(() => setAddedToCart(false), 3000) // update cart state after 1 second
       })
   }
 

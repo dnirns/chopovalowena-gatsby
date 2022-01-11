@@ -9,7 +9,7 @@ export const CloseButton = ({ className, onClick }: ToggleButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`${className} fixed h-8 w-8 m-6 hover:opacity-75`}
+      className={`${className} fixed h-8 w-8 m-6 hover:opacity-75 transition-opacity duration-200`}
     >
       <svg
         version='1.1'
@@ -34,7 +34,7 @@ export const MenuButton = ({ className, onClick }: ToggleButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`${className} h-8 w-8 m-6 hover:opacity-75 `}
+      className={`${className} h-7 w-7 m-6 hover:opacity-75 transition-opacity duration-200 `}
     >
       <svg
         enableBackground='new 0 0 24 24'

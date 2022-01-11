@@ -4,6 +4,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { getShopifyImage } from 'gatsby-source-shopify'
 import { XIcon } from '@heroicons/react/outline'
 import { LineItemType } from '../../../types'
+import { CloseButton } from '../elements/ToggleButtons'
 
 interface LineItemProps {
   item: LineItemType
@@ -37,9 +38,11 @@ const LineItem = ({ item }: LineItemProps) => {
   )
 
   return (
-    <div className='grid gap-4 grid-cols-4 text-xs my-8'>
-      <div className='col-span-1 space-y-4 text-center'>
-        <p className='font-semibold text-neutral-600'>{item.title}</p>
+    <div className='grid gap-3 grid-cols-6 text-xs my-8 uppercase'>
+      <div className='col-span-1 flex items-center justify-center'>
+        <CloseButton onClick={handleRemove} className='h-4 w-4' />
+      </div>
+      <div className='col-span-1'>
         {image && (
           <GatsbyImage
             key={variantImage.src}
@@ -48,24 +51,16 @@ const LineItem = ({ item }: LineItemProps) => {
           />
         )}
       </div>
-      <div className='col-span-1 flex items-start justify-evenly space-x-8'>
-        <div>{item.variant.title}</div>
-        <p>{quantity}</p>
-        <button onClick={handleRemove}>
-          <XIcon className='w-4 h-4' />
-        </button>
+      <div className='col-span-2 flex items-center justify-center'>
+        <h5 className='text-xs lg:text-sm'>{item.title}</h5>
       </div>
 
-      <div className='flex space-x-8 col-span-2 items-evenly justify-start'>
-        <div>
-          <p>Price</p>
-          <p className='font-bold'>{price}</p>
-        </div>
+      <div className='col-span-1 flex items-center justify-center'>
+        <p className='text-base'>{quantity}</p>
+      </div>
 
-        <div>
-          <p>Subtotal</p>
-          <p className='font-bold'>{subtotal}</p>
-        </div>
+      <div className='col-span-1 flex items-center justify-evenly'>
+        <p className='text-base'>£{subtotal}</p>
       </div>
     </div>
   )

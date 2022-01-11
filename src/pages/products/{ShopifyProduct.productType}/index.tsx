@@ -18,7 +18,6 @@ const ProductTypeIndex = ({
   data: { products },
   pageContext: { productType },
 }: ProductIndexProps) => {
-  console.log(products.nodes)
   return (
     <Layout>
       <Seo title={`Category: ${productType}`} />

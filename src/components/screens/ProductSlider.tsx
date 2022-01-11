@@ -2,9 +2,9 @@ import React, { useState, useContext, useEffect, useCallback } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { StoreContext } from '../../context/store-context'
 import { ProductType } from '../../../types'
-import QuantitySelect from '../../components/elements/QuantitySelect'
-import VariantSelect from './VariantSelect'
-import AddToCart from '../../components/elements/AddToCart'
+import QuantitySelect from '../elements/QuantitySelect'
+import VariantSelect from '../products/VariantSelect'
+import AddToCart from '../elements/AddToCart'
 import { CloseButton } from '../elements/ToggleButtons'
 import { cycleImages } from '../../utils/cycleImages'
 
@@ -29,7 +29,7 @@ const ProductSlider = ({
   } = product
 
   // ===== Context ===== //
-  const { client } = useContext(StoreContext)
+  const { client, didJustAddToCart } = useContext(StoreContext)
 
   // ====== State ====== //
   const availableVariants = variants.filter(
@@ -86,6 +86,13 @@ const ProductSlider = ({
     product.storefrontId,
     variant,
   ])
+
+  // close slider when product is added to cart
+  useEffect(() => {
+    if (didJustAddToCart) {
+      closeSlider()
+    }
+  }, [didJustAddToCart])
 
   const handleCycleImages = (increment: number) => {
     return cycleImages(increment, images, selectedImage, setSelectedImage)
