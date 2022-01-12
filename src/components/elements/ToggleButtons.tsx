@@ -9,7 +9,7 @@ export const CloseButton = ({ className, onClick }: ToggleButtonProps) => {
   return (
     <button
       onClick={onClick}
-      className={`${className} fixed h-8 w-8 m-6 hover:opacity-75 transition-opacity duration-200`}
+      className={`${className} fixed w-6 h-6 md:h-8 md:w-8 m-6 hover:opacity-50 transition-opacity duration-100`}
     >
       <svg
         version='1.1'

@@ -2,7 +2,6 @@ import React, { useState, useContext, useMemo } from 'react'
 import { StoreContext } from '../../context/store-context'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { getShopifyImage } from 'gatsby-source-shopify'
-import { XIcon } from '@heroicons/react/outline'
 import { LineItemType } from '../../../types'
 import { CloseButton } from '../elements/ToggleButtons'
 

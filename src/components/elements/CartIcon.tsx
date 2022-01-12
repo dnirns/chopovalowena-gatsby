@@ -2,10 +2,11 @@ import React from 'react'
 
 interface CartIconProps {
   onClick: () => void
+  className: string
 }
-const CartIcon = ({ onClick }: CartIconProps) => {
+const CartIcon = ({ onClick, className }: CartIconProps) => {
   return (
-    <button className='h-10 w-10' onClick={onClick}>
+    <button className={className} onClick={onClick}>
       <svg
         id='Layer_1'
         data-name='Layer 1'

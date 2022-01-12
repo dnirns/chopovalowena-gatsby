@@ -27,9 +27,11 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
 
   const pathname = usePathname()
 
+  const isShop = pathname.includes('products')
+
   const pageTitle = pathname.includes('gallery')
     ? 'COLLECTIONS'
-    : pathname.includes('product')
+    : pathname.includes('products')
     ? 'SHOP'
     : pathname.toUpperCase()
 
@@ -47,11 +49,13 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
   return (
     <>
       <nav
-        className={`${className} global-text-sizes hidden md:flex fixed z-20 bg-white pt-2 px-2 h-auto w-full justify-between `}
+        className={`${className} global-text-sizes hidden md:flex fixed z-20 bg-white pt-2 px-2 h-auto w-full justify-between items-start`}
       >
         <button
           onClick={toggleCart}
-          className='hidden md:block transition space-x-4 px-2'
+          className={`${
+            isShop ? 'visible' : 'invisible'
+          } transition space-x-4 px-2`}
         >
           CART -
           <span
@@ -71,8 +75,8 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
         <h1 className={`${titleColour} text-6xl pt-6 px-4`}>{pageTitle}</h1>
         {!menuOpen && (
           <div className='z-40 fixed top-0 right-0 '>
-            <CartIcon onClick={toggleCart} />
-            <MenuButton className='h-8 w-8' onClick={toggleMenu} />
+            <CartIcon onClick={toggleCart} className='h-7 w-7' />
+            <MenuButton className='h-5 w-5' onClick={toggleMenu} />
           </div>
         )}
 
