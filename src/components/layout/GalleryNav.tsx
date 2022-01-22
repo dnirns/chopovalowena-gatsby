@@ -57,7 +57,7 @@ const GalleryNav = ({ title, toggleNav }: GalleryNavProps) => {
         <div
           className={`${
             navOpen ? 'block' : 'hidden'
-          } flex flex-col relative pt-0 bg-white left-0  space-y-1 `}
+          } flex flex-col relative pt-0 bg-white left-0 space-y-1 `}
           onMouseLeave={() => setNavOpen(false)}
         >
           {Object.keys(reducedSeasons).map((season, i) => {

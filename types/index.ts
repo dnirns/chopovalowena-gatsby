@@ -8,7 +8,7 @@ export type LineItemType = {
   variant: VariantType
 }
 
-type VariantType = {
+export type VariantType = {
   available: boolean
   id: string
   price: number

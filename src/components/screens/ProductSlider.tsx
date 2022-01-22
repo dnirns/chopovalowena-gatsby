@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useCallback } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { StoreContext } from '../../context/store-context'
-import { ProductType } from '../../../types'
+import { ProductType, VariantType } from '../../../types'
 import QuantitySelect from '../elements/QuantitySelect'
 import VariantSelect from '../products/VariantSelect'
 import AddToCart from '../elements/AddToCart'
@@ -36,7 +36,9 @@ const ProductSlider = ({
     (variant) => variant.availableForSale
   )
 
-  const [variant, setVariant] = useState({ ...availableVariants[0] })
+  const defaultVariant = availableVariants[0]
+
+  const [variant, setVariant] = useState<VariantType>(defaultVariant)
 
   const productVariant =
     client.product.helpers.variantForOptions(product, variant) || variant
@@ -76,6 +78,11 @@ const ProductSlider = ({
     },
     [productVariant.storefrontId, client.product]
   )
+
+  // ===== Set the first available variant as the default on loading ===== //
+  useEffect(() => {
+    setVariant(defaultVariant)
+  }, [defaultVariant])
 
   useEffect(() => {
     checkAvailablity(product.storefrontId)
