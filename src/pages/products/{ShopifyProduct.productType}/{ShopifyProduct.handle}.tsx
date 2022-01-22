@@ -37,9 +37,8 @@ export default function Product({ data: { product } }: ProductsProps) {
 
   const [quantity, setQuantity] = useState(1)
 
-  const availableQuantities = Array.from(
-    Array(variant.inventoryQuantity).keys()
-  ).map((i) => i + 1)
+  const availableQuantities =
+    Array.from(Array(variant.inventoryQuantity).keys()).map((i) => i + 1) || []
 
   const productVariant =
     client.product.helpers.variantForOptions(product, variant) || variant
