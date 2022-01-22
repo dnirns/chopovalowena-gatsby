@@ -8,15 +8,15 @@ import Seo from '../../../components/elements/Seo'
 const index = ({ data: { page } }: GalleryQueryType) => {
   return (
     <Layout noMargin={true}>
-      <Seo title={`Chopova Lowena ${page.season} ${page.galleryType}`} />
+      <Seo title={`Chopova Lowena ${page?.season} ${page?.galleryType}`} />
 
       <main className='md:w-1/2 z-20 md:absolute top-0'>
-        {page.images.map((image, index) => (
+        {page?.images.map((image, index) => (
           <GatsbyImage
             className='col-span-1 col-start-1'
             key={index}
             objectFit='fill'
-            alt={` Chopova Lowena ${page.season} ${page.galleryType} image #${
+            alt={` Chopova Lowena ${page?.season} ${page?.galleryType} image #${
               index + 1
             }`}
             image={image.gatsbyImageData}
@@ -24,8 +24,8 @@ const index = ({ data: { page } }: GalleryQueryType) => {
         ))}
 
         <ul className='text-xl md:text-2xl space-y-0 leading-tight m-4'>
-          {page.credits &&
-            page.credits.map((credit: string, i: number) => (
+          {page?.credits &&
+            page?.credits.map((credit: string, i: number) => (
               <li key={i}>{credit}</li>
             ))}
         </ul>

@@ -22,19 +22,19 @@ const index = ({ data: { page } }: GalleryQueryType) => {
 
   return (
     <Layout noMobileMargin>
-      <Seo title={`Chopova Lowena ${page.season} ${page.galleryType}`} />
+      <Seo title={`Chopova Lowena ${page?.season} ${page?.galleryType}`} />
 
       <GallerySlider
         open={sliderOpen}
-        image={page.images[selectedImage].gatsbyImageData}
+        image={page?.images[selectedImage].gatsbyImageData}
         toggleSlider={() => setSliderOpen(false)}
-        alt={`Chopova Lowena ${page.season} Look ${selectedImage + 1}`}
+        alt={`Chopova Lowena ${page?.season} Look ${selectedImage + 1}`}
         nextImage={() => handleCycleImages(1)}
         previousImage={() => handleCycleImages(-1)}
       />
 
       <div className='grid md:grid-cols-4 md:gap-5 mx-0'>
-        {page.images.map((image, index) => (
+        {page?.images.map((image, index) => (
           <div
             className='cursor-pointer hover:opacity-95'
             onClick={() => handleImageClick(index)}
@@ -42,9 +42,9 @@ const index = ({ data: { page } }: GalleryQueryType) => {
           >
             <GatsbyImage
               objectFit='fill'
-              alt={`Chopova Lowena ${page.season} ${page.galleryType} Image #${
-                index + 1
-              }`}
+              alt={`Chopova Lowena ${page?.season} ${
+                page?.galleryType
+              } Image #${index + 1}`}
               image={image.gatsbyImageData}
             />
           </div>
