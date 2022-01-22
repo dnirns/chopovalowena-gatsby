@@ -40,25 +40,26 @@ const ProductListing = ({ products }: ProductListingProps) => {
           />
         )}
 
-        {products.map((product, index) => (
-          <div
-            key={product.id}
-            onClick={() => handleProductClick(product)}
-            className='relative flex items-center justify-center cursor-pointer'
-          >
-            {/* ===== Banner for items with sale tag */}
-            {product.tags?.filter((tag) => tag === 'sale').length > 0 && (
-              <span className='absolute z-10 w-[85%] bg-clpink bg-opacity-70 p-0 text-center pt-0.5 text-white text-sm md:text-xs xl:text-sm -rotate-12'>
-                SALE
-              </span>
-            )}
-            <ProductCard
-              product={product}
-              key={product.id}
-              eager={index === 0}
-            />
-          </div>
-        ))}
+        {products &&
+          products?.map((product, index) => (
+            <div
+              key={product?.id}
+              onClick={() => handleProductClick(product)}
+              className='relative flex items-center justify-center cursor-pointer'
+            >
+              {/* ===== Banner for items with sale tag */}
+              {product?.tags?.filter((tag) => tag === 'sale').length > 0 && (
+                <span className='absolute z-10 w-[85%] bg-clpink bg-opacity-70 p-0 text-center pt-0.5 text-white text-sm md:text-xs xl:text-sm -rotate-12'>
+                  SALE
+                </span>
+              )}
+              <ProductCard
+                product={product}
+                key={product?.id}
+                eager={index === 0}
+              />
+            </div>
+          ))}
       </div>
     </div>
   )

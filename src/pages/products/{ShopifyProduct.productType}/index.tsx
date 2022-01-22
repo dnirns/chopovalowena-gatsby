@@ -18,10 +18,17 @@ const ProductTypeIndex = ({
   data: { products },
   pageContext: { productType },
 }: ProductIndexProps) => {
+  console.log(products)
   return (
     <Layout>
       <Seo title={`Category: ${productType}`} />
-      <ProductListing products={products.nodes} />
+      {products.nodes.length > 0 ? (
+        <ProductListing products={products.nodes} />
+      ) : (
+        <div>
+          <p>Sorry, we are sold out of {productType}</p>
+        </div>
+      )}
     </Layout>
   )
 }
