@@ -83,8 +83,8 @@ export default function Product({ data: { product } }: ProductsProps) {
 
   const hasVariants = variants.length > 1
   const hasImages = images.length > 0
+  console.log(variants)
 
-  console.log(availableQuantities)
   return (
     <Layout>
       {firstImage ? (
@@ -145,7 +145,7 @@ export default function Product({ data: { product } }: ProductsProps) {
                               !variants.find(
                                 (variant) =>
                                   variant.title === value &&
-                                  variant.availableForSale
+                                  variant.inventoryQuantity > 0
                               )
                             }
                           >
@@ -159,12 +159,12 @@ export default function Product({ data: { product } }: ProductsProps) {
               )}
               <div>
                 {/* SELECT QUANTITY */}
-                {
+                {availableQuantities.length > 0 && (
                   <QuantitySelect
                     onChange={(value: any) => setQuantity(value)}
                     availableQuantities={availableQuantities}
                   />
-                }
+                )}
               </div>
               <AddToCart
                 variantId={productVariant.storefrontId}

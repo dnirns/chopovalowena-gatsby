@@ -19,7 +19,7 @@ const QuantitySelect = ({
         aria-label='Quantity'
         onChange={(e) => onChange(e.target.value)}
       >
-        {availableQuantities.map((value, i) => (
+        {availableQuantities?.map((value, i) => (
           <option className='font-mono' value={value} key={i}>
             {value}
           </option>
