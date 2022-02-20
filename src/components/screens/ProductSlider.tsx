@@ -3,7 +3,7 @@ import { GatsbyImage } from 'gatsby-plugin-image'
 import { StoreContext } from '../../context/store-context'
 import { ProductType, VariantType } from '../../../types'
 import QuantitySelect from '../elements/QuantitySelect'
-import VariantSelect from '../products/VariantSelect'
+import VariantSelect from '../shop/VariantSelect'
 import AddToCart from '../elements/AddToCart'
 import { CloseButton } from '../elements/ToggleButtons'
 import { cycleImages } from '../../utils/cycleImages'
@@ -27,6 +27,9 @@ const ProductSlider = ({
     description,
     images: [firstImage],
   } = product
+
+  const hasOneSize =
+    options.length === 1 && options[0].values[0].toLowerCase() === 'one size'
 
   // ===== Context ===== //
   const { client, didJustAddToCart } = useContext(StoreContext)
@@ -101,26 +104,30 @@ const ProductSlider = ({
     }
   }, [didJustAddToCart])
 
+  // when different product is selected, change the selected image to first
+  useEffect(() => {
+    setSelectedImage(0)
+  }, [product])
+
   const handleCycleImages = (increment: number) => {
     return cycleImages(increment, images, selectedImage, setSelectedImage)
   }
 
-  const hasVariants = variants.length > 1
+  const hasVariants = variants.length > 0
   const hasImages = images.length > 0
 
   return (
     <section
       className={`${
         !showSlider ? 'translate-x-[-100%]' : 'translate-x-[0]'
-      } fixed top-0 left-0 z-20 h-screen w-full md:w-1/2 bg-white transition duration-300 overflow-auto no-scrollbar`}
+      } fixed top-0 left-0 z-30 h-full w-full md:w-1/2 bg-white transition duration-300 overflow-auto no-scrollbar`}
     >
+      <CloseButton onClick={closeSlider} className='sticky z-40 top-4 left-4' />
       {/* ==== IMAGE CAROUSEL ===== */}
       <div
-        className='w-full flex items-center justify-center hover:opacity-90 cursor-pointer pt-16 px-2'
+        className='w-full flex items-center justify-center hover:opacity-90 cursor-pointer  px-2'
         onClick={() => handleCycleImages(1)}
       >
-        <CloseButton onClick={closeSlider} className='absolute top-0 left-0' />
-
         {hasImages && (
           <GatsbyImage
             key={images[selectedImage]?.id}
@@ -139,40 +146,45 @@ const ProductSlider = ({
 
       {/* ===== INFO ===== */}
 
-      <div className='grid grid-cols-4 gap-2 px-2 '>
+      <div className='grid grid-cols-3 md:grid-cols-2 gap-4 px-4'>
         {/* ===== first column span 1 */}
-        <div className='col-span-1'>
-          <h4 className='md:text-sm md:leading-relaxed'>{title}</h4>
+        <div className='col-span-2 md:col-span-1'>
+          <h4 className='md:text-sm text-xl '>{title}</h4>
         </div>
+
+        <div className='col-span-1 block md:hidden '>
+          <h4 className='text-lg text-center'>{productVariant.price}</h4>
+        </div>
+
+        <h4 className='hidden md:block md:text-sm text-center'>
+          £{productVariant.price}
+        </h4>
         {/* ==== middle column span 2 */}
         <ProductText description={description} />
 
         {/* ===== right column span 1 - price */}
-
-        <div>
-          <h4 className='md:text-sm md:leading-relaxed'>
-            {productVariant.price}
-          </h4>
-        </div>
       </div>
 
-      {/* ==== SELECT VARIANT (SIZE) ====  */}
-      {hasVariants && (
-        <VariantSelect
-          options={options}
-          onChange={(e) => handleOptionChange(e)}
-          variants={variants}
+      <div className='p-4'>
+        {/* ==== SELECT VARIANT (SIZE) ====  */}
+        {hasVariants && !hasOneSize && (
+          <VariantSelect
+            options={options}
+            onSelect={(e) => handleOptionChange(e)}
+            variants={variants}
+            selectedVariant={variant.title}
+          />
+        )}
+
+        {hasOneSize && <p className='text-xl lg:text-lg py-2'>One Size Only</p>}
+
+        {/* ==== SELECT QUANTITY =====  */}
+        <QuantitySelect
+          onChange={(value: any) => setQuantity(value)}
+          selectedQuantity={quantity}
+          availableQuantities={availableQuantities}
         />
-      )}
-
-      {/* ==== SELECT QUANTITY =====  */}
-      <QuantitySelect
-        onChange={(value: any) => setQuantity(value)}
-        selectedQuantity={quantity}
-        availableQuantities={availableQuantities}
-      />
-
-      {product.title}
+      </div>
     </section>
   )
 }
@@ -182,18 +194,18 @@ export default ProductSlider
 // eslint-disable-next-line react/prop-types
 const ProductText = ({ description }) => {
   return (
-    <section className='space-y-4 col-span-2 col-start-2'>
-      <h4 className='md:text-sm'>PRODUCT DETAILS</h4>
-      <p className='cl-light text-sm'>{description}</p>
+    <section className='space-y-4 col-span-3 md:col-span-2 md:col-start-1'>
+      <h4 className='text-xl md:text-sm'>PRODUCT DETAILS</h4>
+      <p className='cl-light text-xs'>{description}</p>
 
-      <h4 className='md:text-sm'>SHIPPING</h4>
-      <p className='cl-light text-sm'>
+      <h4 className='text-xl md:text-sm'>SHIPPING</h4>
+      <p className='cl-light text-xs'>
         Shipping to the UK, EU, USA and Canada only. Shipping is calculated at
         the checkout. Customs and Duties Not Included.
       </p>
 
-      <h4 className='md:text-sm'>CUSTOMER CARE</h4>
-      <p className='cl-light text-sm'>
+      <h4 className='text-xl md:text-sm'>CUSTOMER CARE</h4>
+      <p className='cl-light text-xs'>
         Please note some items are made from upcycled, vintage and deadstock
         textiles and leather. Please be aware imperfections may be present. This
         is the beauty of sustainability! Please be aware some buckles can

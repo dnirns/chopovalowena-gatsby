@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { StoreContext } from '../../context/store-context'
 import Slider from '../layout/Slider'
-import LineItem from '../../components/products/LineItem'
+import LineItem from '../shop/LineItem'
 
 interface CartSliderProps {
   toggleSlider: () => void
@@ -14,18 +14,17 @@ const CartSlider = ({ cartOpen, toggleSlider }: CartSliderProps) => {
 
   const handleCheckout = () => {
     window.open(checkout.webUrl)
+    toggleSlider()
   }
   return (
     <Slider open={cartOpen} toggleSlider={toggleSlider} desktopOnly={false}>
       <main className='h-full w-full mt-10'>
         {emptyCart ? (
-          <div className='h-full w-full flex  justify-center items-center pb-20'>
-            <h1 className='uppercase text-3xl text-clred'>
-              Your cart is empty
-            </h1>
+          <div className='h-full w-full flex justify-center items-center pb-20'>
+            <h1 className='uppercase text-3xl breaks'>Your cart is empty</h1>
           </div>
         ) : (
-          <div className='pt-4 space-y-8 h-full flex flex-col'>
+          <div className='pt-4 space-y-8 h-full flex flex-col breaks'>
             <h1 className='text-4xl font-bold uppercase text-center'>CART</h1>
             <div>
               {checkout.lineItems.map((item) => (
@@ -33,7 +32,7 @@ const CartSlider = ({ cartOpen, toggleSlider }: CartSliderProps) => {
               ))}
             </div>
             <button
-              className='bg-clpink text-white uppercase px-4 pt-3 pb-2 my-2 hover:bg-opacity-60 transition duration-200'
+              className='bg-clpink text-white uppercase px-4 pt-3 pb-2 my-2 hover:bg-opacity-60 transition duration-200 text-xl'
               onClick={handleCheckout}
               disabled={loading}
             >

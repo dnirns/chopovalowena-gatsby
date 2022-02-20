@@ -1,10 +1,10 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, createContext, ReactChild } from 'react'
 import Client from 'shopify-buy'
 import { LineItemType } from '../../types'
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 const client = Client.buildClient(
   {
     domain: process.env.GATSBY_SHOPIFY_STORE_URL,
@@ -20,7 +20,8 @@ interface Context {
     webUrl?: string
   }
   cart: any[]
-  // isCartOpen: boolean
+  isCartOpen: boolean
+  toggleCart: () => void
   loading: boolean
   onOpen: () => void
   onClose: () => void
@@ -38,7 +39,8 @@ interface Context {
 //  Default Context
 const defaultValues: Context = {
   cart: [],
-  // isCartOpen: false,
+  isCartOpen: false,
+  toggleCart: () => {},
   loading: false,
   onOpen: () => {},
   onClose: () => {},
@@ -64,6 +66,7 @@ export const StoreProvider = ({ children }: any) => {
   const [checkout, setCheckout] = useState(defaultValues.checkout)
   const [loading, setLoading] = useState(false)
   const [addedToCart, setAddedToCart] = useState(false)
+  const [isCartOpen, setIsCartOpen] = useState(false)
 
   const setCheckoutItem = (checkout) => {
     if (isBrowser) {
@@ -148,6 +151,10 @@ export const StoreProvider = ({ children }: any) => {
       })
   }
 
+  const toggleCart = (): void => {
+    setIsCartOpen(!isCartOpen)
+  }
+
   return (
     <StoreContext.Provider
       value={{
@@ -158,6 +165,8 @@ export const StoreProvider = ({ children }: any) => {
         checkout,
         loading,
         didJustAddToCart: addedToCart,
+        isCartOpen,
+        toggleCart,
       }}
     >
       {children}

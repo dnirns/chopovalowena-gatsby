@@ -29,10 +29,14 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
 
   return (
     <nav className='flex flex-col flex-wrap relative h-auto uppercase max-w-[2.2em] '>
-      <div className='relative w-full h-full flex flex-col'>
+      <div
+        // onMouseEnter={() => setNavOpen(true)}
+        onMouseLeave={() => setNavOpen(false)}
+        className='relative w-full h-full flex flex-col'
+      >
         <button
           className='uppercase text-left hover:text-clyellow'
-          onClick={() => setNavOpen(true)}
+          onClick={() => setNavOpen(!navOpen)}
         >
           {title}
         </button>

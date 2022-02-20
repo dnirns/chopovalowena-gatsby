@@ -28,7 +28,7 @@ const AddToCart = ({
       type='submit'
       className={`${
         !disabled ? 'bg-clpink hover:bg-opacity-80' : 'bg-violet-200'
-      }  pt-3 pb-2 px-2  text-white text-lg md:text-base w-full uppercase my-8 `}
+      }  pt-3 pb-2ga px-2  text-white text-lg md:text-lg w-full uppercase my-12 `}
       onClick={addToCart}
       disabled={disabled}
       {...props}

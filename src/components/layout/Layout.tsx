@@ -17,27 +17,27 @@ const Layout = ({ children, noMobileMargin, noMargin }: LayoutProps) => {
 
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const [cartOpen, setCartOpen] = useState(false)
-
   const hideMenu = pathname.includes('gallery') || pathname.includes('products')
+
+  const { toggleCart, isCartOpen } = useContext(StoreContext)
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen)
   }
 
-  const handleToggleCart = () => {
-    setCartOpen(!cartOpen)
-  }
+  useEffect(() => {
+    isCartOpen ? console.log('cart open') : console.log('cart closed')
+  }, [isCartOpen])
 
   return (
     <div>
       <Seo />
-      <CartSlider cartOpen={cartOpen} toggleSlider={handleToggleCart} />
+      <CartSlider cartOpen={isCartOpen} toggleSlider={toggleCart} />
       <div className='w-full flex justify-end'>
         <Nav
           toggleMenu={toggleMenu}
           menuOpen={menuOpen}
-          toggleCart={handleToggleCart}
+          toggleCart={toggleCart}
         />
       </div>
 

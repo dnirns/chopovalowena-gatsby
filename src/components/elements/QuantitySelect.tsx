@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 interface QuantitySelectProps {
   availableQuantities: number[]
@@ -11,21 +11,63 @@ const QuantitySelect = ({
   selectedQuantity,
   onChange,
 }: QuantitySelectProps) => {
+  const [showOptions, setShowOptions] = useState(false)
+  const [hasSelectedQuantity, setHasSelectedQuantity] = useState(false)
+
+  const handleSelectQuantity = (quantity) => {
+    onChange(quantity.toString())
+    setShowOptions(false)
+    setHasSelectedQuantity(true)
+  }
+
+  const handleOpenOptions = () => {
+    setShowOptions(true)
+    setHasSelectedQuantity(false)
+  }
+
   return (
-    <fieldset className='space-x-4 p-2'>
-      <label className='text-sm font-light'>Select Quantity</label>
-      <select
-        className='pt-2 pb-1 rounded-sm bg-violet-400 text-white text-sm  font-light font-san-serif text-center cursor-pointer'
-        aria-label='Quantity'
-        onChange={(e) => onChange(e.target.value)}
+    <div className='text-lg'>
+      <button
+        onClick={handleOpenOptions}
+        className='uppercase hover:text-clpink'
       >
-        {availableQuantities?.map((value, i) => (
-          <option className='font-mono' value={value} key={i}>
-            {value}
-          </option>
-        ))}
-      </select>
-    </fieldset>
+        {availableQuantities.length ? 'Select Quantity' : 'Out of stock'}
+      </button>
+      {hasSelectedQuantity && <p>{selectedQuantity}</p>}
+      <div>
+        {showOptions && (
+          <ul className=''>
+            {availableQuantities.map((quantity) => (
+              <li
+                key={quantity}
+                className={`${
+                  Number(selectedQuantity) === quantity
+                    ? 'text-clpink'
+                    : 'text-black hover:text-clpink'
+                } p-2 cursor-pointer`}
+                onClick={() => handleSelectQuantity(quantity)}
+              >
+                {quantity}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+    // <fieldset className='space-x-4'>
+    //   <label className='text-xl lg:text-lg font-light'>Select Quantity</label>
+    //   <select
+    //     className='pt-2 pb-1  text-clpink text-lg cl-bold  text-center cursor-pointer bg-white border-none appearance-none'
+    //     aria-label='Quantity'
+    //     onChange={(e) => onChange(e.target.value)}
+    //   >
+    //     {availableQuantities?.map((value, i) => (
+    //       <option className='text-clpink' value={value} key={i}>
+    //         {value}
+    //       </option>
+    //     ))}
+    //   </select>
+    // </fieldset>
   )
 }
 export default QuantitySelect

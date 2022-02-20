@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import { StoreContext } from '../../context/store-context'
 import ProductCard from './ProductCard'
 import { ProductType } from '../../../types'
 import ProductSlider from '../screens/ProductSlider'
@@ -13,7 +14,10 @@ const ProductListing = ({ products }: ProductListingProps) => {
   )
   const [showSlider, setShowSlider] = useState(false)
 
+  const { isCartOpen, toggleCart } = useContext(StoreContext)
+
   const handleProductClick = (product: ProductType) => {
+    isCartOpen && toggleCart()
     setSelectedProduct(product)
     setShowSlider(true)
   }
@@ -23,14 +27,18 @@ const ProductListing = ({ products }: ProductListingProps) => {
   }
 
   return (
-    <div className={`${showSlider && 'md:justify-end '} flex w-full`}>
+    <div
+      className={`${
+        (showSlider || isCartOpen) && 'md:justify-end '
+      } flex w-full`}
+    >
       {/* ===== when slider is open, main grid snaps to right side so all products are still visible */}
       <div
         className={`${
-          showSlider
+          showSlider || isCartOpen
             ? 'md:w-1/2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3'
             : 'md:grid-cols-4 lg:grid-cols-4 w-full'
-        } grid grid-cols-2  marker:gap-2 `}
+        } grid grid-cols-2 gap-4 `}
       >
         {products && (
           <ProductSlider

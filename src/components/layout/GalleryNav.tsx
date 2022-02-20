@@ -45,12 +45,16 @@ const GalleryNav = ({ title, toggleNav }: GalleryNavProps) => {
 
   return (
     <nav className='flex flex-col flex-wrap relative h-auto uppercase  '>
-      <div className='relative w-full h-full flex flex-col text-left'>
+      <div
+        // onMouseEnter={() => setNavOpen(true)}
+        onMouseLeave={() => setNavOpen(false)}
+        className='relative w-full h-full flex flex-col text-left'
+      >
         <button
           className={`${
             location.pathname.includes('gallery') && 'text-clpink'
           } uppercase text-left hover:text-clpink  `}
-          onClick={() => setNavOpen(true)}
+          onClick={() => setNavOpen(!navOpen)}
         >
           {title}
         </button>
@@ -58,7 +62,7 @@ const GalleryNav = ({ title, toggleNav }: GalleryNavProps) => {
           className={`${
             navOpen ? 'block' : 'hidden'
           } flex flex-col relative pt-0 bg-white left-0 space-y-1 `}
-          onMouseLeave={() => setNavOpen(false)}
+          // onMouseLeave={() => setNavOpen(false)}
         >
           {Object.keys(reducedSeasons).map((season, i) => {
             return (

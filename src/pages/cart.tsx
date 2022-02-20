@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import Layout from '../components/layout/Layout'
 import { StoreContext } from '../context/store-context'
-import LineItem from '../components/products/LineItem'
+import LineItem from '../components/shop/LineItem'
 
 const cart = () => {
   const { checkout, loading } = useContext(StoreContext)

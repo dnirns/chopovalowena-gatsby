@@ -26,7 +26,10 @@ const GallerySlider = ({
         !open && '-translate-x-[100%]'
       } transition ease-in-out duration-300 fixed h-screen w-1/2 bg-white z-20 hidden md:flex top-0 left-0 p-6 `}
     >
-      <CloseButton onClick={toggleSlider} className='absolute top-0 left-0' />
+      <CloseButton
+        onClick={toggleSlider}
+        className='absolute top-0 left-0 m-4'
+      />
 
       <div
         onClick={nextImage}

@@ -17,9 +17,7 @@ interface NavProps {
 
 const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
   const { checkout, didJustAddToCart } = useContext(StoreContext)
-
   const items = checkout ? checkout.lineItems : []
-
   // ==== Keep for Cart Icon  ==== //
   const quantity = items.reduce((total, item) => {
     return total + item.quantity
@@ -71,8 +69,10 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
         </div>
       </nav>
       {/* ===== mobile nav ===== */}
-      <div className='flex justify-between w-full md:hidden z-20 uppercase '>
-        <h1 className={`${titleColour} text-6xl pt-6 px-4`}>{pageTitle}</h1>
+      <div className='flex justify-between w-full md:hidden z-30 uppercase '>
+        <h1 className={`${titleColour} text-6xl pt-6 px-4`}>
+          {pageTitle.replace('/', '')}
+        </h1>
         {!menuOpen && (
           <div className='z-40 fixed top-0 right-0 '>
             <CartIcon onClick={toggleCart} className='h-7 w-7' />
@@ -87,7 +87,7 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
         >
           <CloseButton
             onClick={toggleMenu}
-            className='absolute top-0 right-0'
+            className='absolute top-0 right-0 m-4'
           />
 
           <div className='absolute h-full overflow-y-scroll flex flex-col w-full'>

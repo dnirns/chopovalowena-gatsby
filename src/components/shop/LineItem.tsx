@@ -37,9 +37,9 @@ const LineItem = ({ item }: LineItemProps) => {
   )
 
   return (
-    <div className='grid gap-3 grid-cols-6 text-xs my-8 uppercase'>
+    <div className='grid gap-2 grid-cols-6 text-xs my-8 uppercase'>
       <div className='col-span-1 flex items-center justify-center'>
-        <CloseButton onClick={handleRemove} className='h-4 w-4' />
+        <CloseButton onClick={handleRemove} className='h-5 w-5 xl:h-6 xl:w-6' />
       </div>
       <div className='col-span-1'>
         {image && (
@@ -50,16 +50,16 @@ const LineItem = ({ item }: LineItemProps) => {
           />
         )}
       </div>
-      <div className='col-span-2 flex items-center justify-center'>
-        <h5 className='text-xs lg:text-sm'>{item.title}</h5>
+      <div className='col-span-2 flex items-center justify-center text-center'>
+        <h5 className='text-xs lg:text-sm xl:text-base'>{item.title}</h5>
       </div>
 
       <div className='col-span-1 flex items-center justify-center'>
-        <p className='text-base'>{quantity}</p>
+        <p className='text-base xl:text-xl'>{quantity}</p>
       </div>
 
       <div className='col-span-1 flex items-center justify-evenly'>
-        <p className='text-base'>£{subtotal}</p>
+        <p className='text-base xl:text-xl'>£{subtotal}</p>
       </div>
     </div>
   )
