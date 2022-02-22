@@ -43,7 +43,7 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
         <div
           className={`${
             navOpen ? 'block' : 'hidden'
-          } flex flex-col texts-left bg-white leading-none relative `}
+          } flex flex-col texts-left bg-none leading-none relative md:-translate-y-1 xl:-translate-y-[.4rem]`}
           onMouseLeave={() => setNavOpen(false)}
         >
           {productTypes.map((name) => (

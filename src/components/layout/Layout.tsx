@@ -33,7 +33,7 @@ const Layout = ({ children, noMobileMargin, noMargin }: LayoutProps) => {
     <div>
       <Seo />
       <CartSlider cartOpen={isCartOpen} toggleSlider={toggleCart} />
-      <div className='w-full flex justify-end'>
+      <div className='flex w-full justify-end'>
         <Nav
           toggleMenu={toggleMenu}
           menuOpen={menuOpen}
@@ -44,12 +44,12 @@ const Layout = ({ children, noMobileMargin, noMargin }: LayoutProps) => {
       <main
         className={`${noMobileMargin && 'mx-0 md:mx-4'} ${
           noMargin ? 'mx-0' : 'mx-4'
-        } pt-10 md:pt-20 uppercase`}
+        } pt-10 uppercase md:pt-20`}
       >
         {children}
       </main>
       {!hideMenu && (
-        <Logo className='fixed w-full md:w-1/2 bottom-0 right-0 p-4 bg-white' />
+        <Logo className='fixed bottom-0 right-0 w-full bg-white p-4 md:w-1/2' />
       )}
     </div>
   )

@@ -12,7 +12,7 @@ const ProductListing = ({ products }: ProductListingProps) => {
   const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(
     products[0]
   )
-  const [showSlider, setShowSlider] = useState(false)
+  const [showSlider, setShowSlider] = useState(true)
 
   const { isCartOpen, toggleCart } = useContext(StoreContext)
 

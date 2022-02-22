@@ -149,15 +149,15 @@ const ProductSlider = ({
       <div className='grid grid-cols-3 md:grid-cols-2 gap-4 px-4'>
         {/* ===== first column span 1 */}
         <div className='col-span-2 md:col-span-1'>
-          <h4 className='md:text-sm text-xl '>{title}</h4>
+          <h4 className='md:text-base text-xl  2xl:text-xl'>{title}</h4>
         </div>
 
         <div className='col-span-1 block md:hidden '>
-          <h4 className='text-lg text-center'>{productVariant.price}</h4>
+          <h4 className='text-lg text-right'>£ {productVariant.price}</h4>
         </div>
 
-        <h4 className='hidden md:block md:text-sm text-center'>
-          £{productVariant.price}
+        <h4 className='hidden md:block md:text-base 2xl:text-xl text-right'>
+          £{''} {productVariant.price}
         </h4>
         {/* ==== middle column span 2 */}
         <ProductText description={description} />
@@ -167,16 +167,22 @@ const ProductSlider = ({
 
       <div className='p-4'>
         {/* ==== SELECT VARIANT (SIZE) ====  */}
-        {hasVariants && !hasOneSize && (
-          <VariantSelect
-            options={options}
-            onSelect={(e) => handleOptionChange(e)}
-            variants={variants}
-            selectedVariant={variant.title}
-          />
-        )}
+        {hasVariants &&
+          !hasOneSize &&
+          variant.title.toLowerCase() !== 'default title' && (
+            <VariantSelect
+              options={options}
+              onSelect={(e) => handleOptionChange(e)}
+              variants={variants}
+              selectedVariant={variant.title}
+            />
+          )}
 
-        {hasOneSize && <p className='text-xl lg:text-lg py-2'>One Size Only</p>}
+        {hasOneSize && (
+          <p className='text-xl lg:text-lg xl:text-xl pt-2 pb-6 '>
+            One Size Only
+          </p>
+        )}
 
         {/* ==== SELECT QUANTITY =====  */}
         <QuantitySelect
@@ -195,17 +201,17 @@ export default ProductSlider
 const ProductText = ({ description }) => {
   return (
     <section className='space-y-4 col-span-3 md:col-span-2 md:col-start-1'>
-      <h4 className='text-xl md:text-sm'>PRODUCT DETAILS</h4>
-      <p className='cl-light text-xs'>{description}</p>
+      <h4 className='text-xl md:text-base 2xl:text-xl'>PRODUCT DETAILS</h4>
+      <p className='cl-light text-sm 2xl:text-base'>{description}</p>
 
-      <h4 className='text-xl md:text-sm'>SHIPPING</h4>
-      <p className='cl-light text-xs'>
+      <h4 className='text-xl md:text-base 2xl:text-xl'>SHIPPING</h4>
+      <p className='cl-light text-sm 2xl:text-base'>
         Shipping to the UK, EU, USA and Canada only. Shipping is calculated at
         the checkout. Customs and Duties Not Included.
       </p>
 
-      <h4 className='text-xl md:text-sm'>CUSTOMER CARE</h4>
-      <p className='cl-light text-xs'>
+      <h4 className='text-xl md:text-base 2xl:text-xl'>CUSTOMER CARE</h4>
+      <p className='cl-light text-sm 2xl:text-base'>
         Please note some items are made from upcycled, vintage and deadstock
         textiles and leather. Please be aware imperfections may be present. This
         is the beauty of sustainability! Please be aware some buckles can
@@ -213,7 +219,16 @@ const ProductText = ({ description }) => {
         skirts with damages are non-returnable. Leather will soften over time.
         Natural leather belts on certain styles will become darker when exposed
         to light. Please see care labels for compositions and care information
-        or email eshop@chopovalowena.com for more information.
+        or email{' '}
+        <a
+          className='hover:text-clblue transition duration-75'
+          href='mailto:eshop@chopovalowena.com'
+          target='_blank'
+          rel='noreferrer'
+        >
+          eshop@chopovalowena.com
+        </a>{' '}
+        for more information.
       </p>
     </section>
   )

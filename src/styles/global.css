@@ -54,3 +54,7 @@ html,
 .breaks {
   @apply border-2 border-yellow-500 sm:border-pink-400 md:border-red-500 lg:border-green-500 xl:border-blue-500 2xl:border-purple-500;
 }
+
+.translate-desktop-nav {
+  @apply md:translate-y-2.5 lg:translate-y-[.75rem] xl:translate-y-[.9rem] 2xl:translate-y-[1.1rem];
+}

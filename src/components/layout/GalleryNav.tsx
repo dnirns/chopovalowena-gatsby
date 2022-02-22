@@ -48,7 +48,7 @@ const GalleryNav = ({ title, toggleNav }: GalleryNavProps) => {
       <div
         // onMouseEnter={() => setNavOpen(true)}
         onMouseLeave={() => setNavOpen(false)}
-        className='relative w-full h-full flex flex-col text-left'
+        className='relative w-full h-full flex flex-col text-left '
       >
         <button
           className={`${
@@ -61,12 +61,12 @@ const GalleryNav = ({ title, toggleNav }: GalleryNavProps) => {
         <div
           className={`${
             navOpen ? 'block' : 'hidden'
-          } flex flex-col relative pt-0 bg-white left-0 space-y-1 `}
+          } flex flex-col relative pt-0 bg-none left-0 space-y-1 md:-translate-y-1 xl:-translate-y-[.4rem]`}
           // onMouseLeave={() => setNavOpen(false)}
         >
           {Object.keys(reducedSeasons).map((season, i) => {
             return (
-              <ul key={i} className='flex flex-col leading-none'>
+              <ul key={i} className='flex flex-col leading-none '>
                 <li
                   onClick={() => setSelectedSeason(season)}
                   className={`${

@@ -19,11 +19,11 @@ const Slider = ({
     <div
       className={`${!open && '-translate-x-[100%]'} ${
         desktopOnly ? 'hidden md:flex' : 'flex'
-      } transition ease-in-out duration-300 fixed h-screen md:w-1/2 w-screen bg-white z-40  top-0 left-0 `}
+      } fixed top-0 left-0 z-40 h-screen w-screen bg-white transition duration-300  ease-in-out md:w-1/2 `}
     >
       <CloseButton
         onClick={toggleSlider}
-        className='absolute m-4 top-0 left-0'
+        className='absolute top-0 left-0 m-4'
       />
       {children}
     </div>

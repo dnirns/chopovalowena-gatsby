@@ -68,7 +68,7 @@ export const GalleryQuery = graphql`
       galleryType
       header
       images {
-        gatsbyImageData
+        gatsbyImageData(placeholder: BLURRED, quality: 100)
         file {
           fileName
         }

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql, Link } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { getShopifyImage } from 'gatsby-source-shopify'
@@ -7,6 +7,12 @@ import { ProductType } from '../../../types'
 
 const ProductCard = ({ product, eager }) => {
   const { title, priceRangeV2, slug, images, storefrontImages } = product
+
+  const [image, setImage] = useState(0)
+
+  // const handleHover = (index) => {
+  //   setImage(index)
+  // }
 
   // const price = priceRangeV2?.minVariantPrice.amount
 
@@ -27,14 +33,19 @@ const ProductCard = ({ product, eager }) => {
   }
 
   return (
+    // <div
+    //   onMouseOver={() => handleHover(images.length - 1)}
+    //   onMouseOut={() => handleHover(0)}
+    // >
     <GatsbyImage
-      alt={images[0]?.altText || title}
-      image={images[0]?.gatsbyImageData || storefrontImageData}
+      alt={images[image]?.altText || title}
+      image={images[image]?.gatsbyImageData || storefrontImageData}
       loading={eager ? 'eager' : 'lazy'}
       placeholder='blurred'
       objectFit='contain'
-      className='hover:opacity-90 hover:cursor-pointer'
+      className='hover:opacity-90 hover:cursor-pointer hover:scale-[102%] transition ease-in-out duration-200'
     />
+    // </div>
   )
 }
 

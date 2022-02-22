@@ -44,37 +44,39 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
       ? 'text-clblue'
       : 'text-clred'
 
+  const translateDesktopItems =
+    'md:translate-y-2.5 lg:translate-y-[.75rem] xl:translate-y-[.9rem] 2xl:translate-y-[1.1rem]'
   return (
     <>
       <nav
-        className={`${className} global-text-sizes hidden md:flex fixed z-20 bg-white pt-2 px-2 h-auto w-full justify-between items-start`}
+        className={`${className} global-text-sizes tra fixed z-20 mt-[-10px] 2xl:mt-[-10px] hidden h-auto w-full items-start justify-between bg-white px-2 pt-2  md:flex`}
       >
         <button
           onClick={toggleCart}
           className={`${
             isShop ? 'visible' : 'invisible'
-          } transition space-x-4 px-2`}
+          } space-x-4 px-2 transition translate-desktop-nav hover:opacity-70`}
         >
           CART -
           <span
             className={`${
               didJustAddToCart ? 'text-clpink' : 'text-black'
-            } mx-2`}
+            }  mx-2`}
           >
             {quantity}
           </span>
         </button>
-        <div className='flex w-1/2 justify-between px-2'>
+        <div className='flex w-1/2 translate-desktop-nav justify-between px-2'>
           <NavItems />
         </div>
       </nav>
       {/* ===== mobile nav ===== */}
-      <div className='flex justify-between w-full md:hidden z-30 uppercase '>
-        <h1 className={`${titleColour} text-6xl pt-6 px-4`}>
+      <div className='z-30 flex w-full justify-between uppercase md:hidden '>
+        <h1 className={`${titleColour} px-4 pt-6 text-6xl`}>
           {pageTitle.replace('/', '')}
         </h1>
         {!menuOpen && (
-          <div className='z-40 fixed top-0 right-0 '>
+          <div className='fixed top-0 right-0 z-40 '>
             <CartIcon onClick={toggleCart} className='h-7 w-7' />
             <MenuButton className='h-5 w-5' onClick={toggleMenu} />
           </div>
@@ -83,18 +85,18 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
         <nav
           className={`${
             menuOpen ? 'translate-x-0' : 'translate-x-[100%]'
-          } transition ease-in-out duration-300 fixed top-0 left-0 h-full w-screen bg-white z-20 flex flex-col text-5xl p-6 mb-16 no-scroll `}
+          } no-scroll fixed top-0 left-0 z-20 mb-16 flex h-full w-screen flex-col bg-white p-6 text-5xl transition duration-300 ease-in-out `}
         >
           <CloseButton
             onClick={toggleMenu}
             className='absolute top-0 right-0 m-4'
           />
 
-          <div className='absolute h-full overflow-y-scroll flex flex-col w-full'>
+          <div className='absolute flex h-full w-full flex-col overflow-y-scroll'>
             <NavItems onClick={toggleMenu} />
           </div>
 
-          <Logo className='self-center absolute bottom-0 bg-white py-4' />
+          <Logo className='absolute bottom-0 self-center bg-white py-4' />
         </nav>
       </div>
     </>
@@ -113,7 +115,7 @@ const NavItems = ({ onClick }: NavItemsProps) => {
         to='/about'
         className={`${
           pathname.includes('about') && 'text-clgreen'
-        } hover:text-clgreen `}
+        } hover:text-clgreen`}
         onClick={onClick}
       >
         ABOUT
