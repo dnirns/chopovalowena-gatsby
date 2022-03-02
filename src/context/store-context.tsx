@@ -20,6 +20,7 @@ interface Context {
     webUrl?: string
   }
   cart: any[]
+  cartQuantity: number
   isCartOpen: boolean
   toggleCart: () => void
   loading: boolean
@@ -39,6 +40,7 @@ interface Context {
 //  Default Context
 const defaultValues: Context = {
   cart: [],
+  cartQuantity: 0,
   isCartOpen: false,
   toggleCart: () => {},
   loading: false,
@@ -104,9 +106,7 @@ export const StoreProvider = ({ children }: any) => {
 
   const addVariantToCart = (variantId: string, quantity: string | number) => {
     setLoading(true)
-
     const checkoutID = checkout.id
-
     const lineItemsToUpdate = [
       {
         variantId,
@@ -127,7 +127,6 @@ export const StoreProvider = ({ children }: any) => {
 
   const removeLineItem = (checkoutID, lineItemID) => {
     setLoading(true)
-
     return client.checkout
       .removeLineItems(checkoutID, [lineItemID])
       .then((res) => {
@@ -155,6 +154,12 @@ export const StoreProvider = ({ children }: any) => {
     setIsCartOpen(!isCartOpen)
   }
 
+  // number of cart items - to display in nav / cart icon
+  const cartQuantity = checkout.lineItems.reduce(
+    (total, item) => total + item.quantity,
+    0
+  )
+
   return (
     <StoreContext.Provider
       value={{
@@ -167,6 +172,7 @@ export const StoreProvider = ({ children }: any) => {
         didJustAddToCart: addedToCart,
         isCartOpen,
         toggleCart,
+        cartQuantity,
       }}
     >
       {children}

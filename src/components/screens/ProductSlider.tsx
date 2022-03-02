@@ -1,12 +1,26 @@
-import React, { useState, useContext, useEffect, useCallback } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import { StoreContext } from '../../context/store-context'
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
+
+import { graphql } from 'gatsby'
+
 import { ProductType, VariantType } from '../../../types'
-import QuantitySelect from '../elements/QuantitySelect'
-import VariantSelect from '../shop/VariantSelect'
-import AddToCart from '../elements/AddToCart'
-import { CloseButton } from '../elements/ToggleButtons'
+import { StoreContext } from '../../context/store-context'
+import useOutsideClick from '../../hooks/useOutsideClick'
 import { cycleImages } from '../../utils/cycleImages'
+import AddToCart from '../elements/AddToCart'
+import Arrow from '../elements/Arrow'
+import { CloseButton } from '../elements/ToggleButtons'
+import QuantitySelect from '../shop/QuantitySelect'
+import SizeGuide from '../shop/SizeGuide'
+import VariantSelect from '../shop/VariantSelect'
+import ImageModal from '../common/ImageModal'
+import Modal from '../elements/Modal'
 
 interface ProductSliderProps {
   product: ProductType | null
@@ -113,89 +127,188 @@ const ProductSlider = ({
     return cycleImages(increment, images, selectedImage, setSelectedImage)
   }
 
+  const [sizeGuideOpen, setSizeGuideOpen] = useState(false)
+  const [imageModalOpen, setImageModalOpen] = useState(false)
+
+  const sizeGuideRef = useRef(null)
+  const imageModalRef = useRef(null)
+
+  // close popup modal with click outside event listener hook
+  useOutsideClick(sizeGuideRef, () => {
+    setSizeGuideOpen(false)
+  })
+  useOutsideClick(imageModalRef, () => {
+    setImageModalOpen(false)
+  })
+
+  const handleOpenSizeGuide = () => {
+    setTimeout(() => {
+      setSizeGuideOpen(true)
+    }, 10)
+  }
+
+  const handleCloseSizeGuide = () => {
+    setSizeGuideOpen(false)
+  }
+
+  const handleToggleImageModal = () => {
+    setTimeout(() => {
+      setImageModalOpen(!imageModalOpen)
+    }, 10)
+  }
+
   const hasVariants = variants.length > 0
   const hasImages = images.length > 0
 
   return (
-    <section
-      className={`${
-        !showSlider ? 'translate-x-[-100%]' : 'translate-x-[0]'
-      } fixed top-0 left-0 z-30 h-full w-full md:w-1/2 bg-white transition duration-300 overflow-auto no-scrollbar`}
-    >
-      <CloseButton onClick={closeSlider} className='sticky z-40 top-4 left-4' />
-      {/* ==== IMAGE CAROUSEL ===== */}
-      <div
-        className='w-full flex items-center justify-center hover:opacity-90 cursor-pointer  px-2'
-        onClick={() => handleCycleImages(1)}
+    <>
+      {sizeGuideOpen && (
+        <div className='h-full w-full fixed bg-white bg-opacity-80 top-0 left-0 z-40 flex items-center justify-center cursor-pointer'>
+          <div ref={sizeGuideRef}>
+            <SizeGuide isOpen={sizeGuideOpen} close={handleCloseSizeGuide} />
+          </div>
+        </div>
+      )}
+
+      {imageModalOpen && (
+        <Modal
+          image={images[selectedImage]}
+          open={imageModalOpen}
+          handleToggle={handleToggleImageModal}
+        />
+      )}
+
+      <section
+        className={`${
+          !showSlider ? 'translate-x-[-100%]' : 'translate-x-[0]'
+        } fixed top-0 left-0 z-30 h-full w-full md:w-1/2 bg-white transition duration-300 overflow-auto no-scrollbar`}
       >
+        <CloseButton
+          onClick={closeSlider}
+          className='sticky z-40 top-4 left-4'
+        />
+        {/* ==== IMAGE CAROUSEL ===== */}
         {hasImages && (
-          <GatsbyImage
-            key={images[selectedImage]?.id}
-            image={images[selectedImage]?.gatsbyImageData}
-            alt={title}
-          />
+          <div
+            className={`${
+              images.length > 1 ? 'justify-between' : 'justify-center'
+            } w-full flex items-center hover:opacity-90 cursor-pointer px-2`}
+          >
+            {images.length > 1 && (
+              <Arrow
+                className='h-5 w-5 mx-2 rotate-180 flex hover:opacity-60'
+                onClick={() => handleCycleImages(1)}
+              />
+            )}
+
+            <div onClick={handleToggleImageModal}>
+              <GatsbyImage
+                className='mx-1 max-w-[500px]'
+                key={images[selectedImage]?.id}
+                image={images[selectedImage]?.gatsbyImageData}
+                alt={title}
+              />
+            </div>
+            {images.length > 1 && (
+              <Arrow
+                className='h-5 w-5 mx-2 hover:opacity-60 flex'
+                onClick={() => handleCycleImages(-1)}
+              />
+            )}
+          </div>
         )}
-      </div>
 
-      {/* ===== ADD TO CART BUTTON ===== */}
-      <AddToCart
-        variantId={productVariant.storefrontId}
-        quantity={quantity}
-        available={available}
-      />
+        {/* ===== ADD TO CART BUTTON ===== */}
+        <AddToCart
+          variantId={productVariant.storefrontId}
+          quantity={quantity}
+          available={available}
+        />
 
-      {/* ===== INFO ===== */}
+        {/* ===== INFO ===== */}
 
-      <div className='grid grid-cols-3 md:grid-cols-2 gap-4 px-4'>
-        {/* ===== first column span 1 */}
-        <div className='col-span-2 md:col-span-1'>
-          <h4 className='md:text-base text-xl  2xl:text-xl'>{title}</h4>
+        <div className='grid grid-cols-3 md:grid-cols-2 gap-4 px-4'>
+          {/* ===== first column span 1 */}
+          <div className='col-span-2 md:col-span-1'>
+            <h4 className='md:text-base text-xl  2xl:text-xl'>{title}</h4>
+          </div>
+
+          <div className='col-span-1 block md:hidden'>
+            <h4 className='text-lg text-right'>£ {productVariant.price}</h4>
+            <p
+              onClick={handleOpenSizeGuide}
+              className='text-right py-2  cursor-pointer hover:opacity-60 transition duration-150'
+            >
+              SIZE GUIDE
+            </p>
+          </div>
+
+          <div className='flex flex-col'>
+            <h4 className='hidden md:block md:text-base 2xl:text-xl text-right'>
+              £{''} {productVariant.price}
+            </h4>
+            <p
+              onClick={handleOpenSizeGuide}
+              className='text-right hidden md:inline-block cursor-pointer hover:opacity-60 transition duration-150 col-start-2 col-span-1'
+            >
+              SIZE GUIDE
+            </p>
+          </div>
+
+          {/* ==== middle column span 2 */}
+          <ProductText description={description} />
+
+          {/* ===== right column span 1 - price */}
         </div>
 
-        <div className='col-span-1 block md:hidden '>
-          <h4 className='text-lg text-right'>£ {productVariant.price}</h4>
-        </div>
+        <div className='p-4'>
+          {/* ==== SELECT VARIANT (SIZE) ====  */}
+          {hasVariants &&
+            !hasOneSize &&
+            variant.title.toLowerCase() !== 'default title' && (
+              <VariantSelect
+                options={options}
+                onSelect={(e) => handleOptionChange(e)}
+                variants={variants}
+                selectedVariant={variant.title}
+              />
+            )}
 
-        <h4 className='hidden md:block md:text-base 2xl:text-xl text-right'>
-          £{''} {productVariant.price}
-        </h4>
-        {/* ==== middle column span 2 */}
-        <ProductText description={description} />
-
-        {/* ===== right column span 1 - price */}
-      </div>
-
-      <div className='p-4'>
-        {/* ==== SELECT VARIANT (SIZE) ====  */}
-        {hasVariants &&
-          !hasOneSize &&
-          variant.title.toLowerCase() !== 'default title' && (
-            <VariantSelect
-              options={options}
-              onSelect={(e) => handleOptionChange(e)}
-              variants={variants}
-              selectedVariant={variant.title}
-            />
+          {hasOneSize && (
+            <p className='text-xl lg:text-lg xl:text-xl pt-2 pb-6 '>
+              One Size Only
+            </p>
           )}
 
-        {hasOneSize && (
-          <p className='text-xl lg:text-lg xl:text-xl pt-2 pb-6 '>
-            One Size Only
-          </p>
-        )}
-
-        {/* ==== SELECT QUANTITY =====  */}
-        <QuantitySelect
-          onChange={(value: any) => setQuantity(value)}
-          selectedQuantity={quantity}
-          availableQuantities={availableQuantities}
-        />
-      </div>
-    </section>
+          {/* ==== SELECT QUANTITY =====  */}
+          <QuantitySelect
+            onChange={(value: any) => setQuantity(value)}
+            selectedQuantity={quantity}
+            availableQuantities={availableQuantities}
+          />
+        </div>
+      </section>
+    </>
   )
 }
 
 export default ProductSlider
+
+// export const query = graphql`
+//   query ($productType: String!) {
+//     product: shopifyProduct(
+//       filter: { productType: { eq: $productType }, totalInventory: { gt: 0 } }
+//       sort: { fields: publishedAt, order: ASC }
+//     ) {
+//       nodes {
+//         ...ProductCard
+//       }
+//       pageInfo {
+//         hasNextPage
+//       }
+//     }
+//   }
+// `
 
 // eslint-disable-next-line react/prop-types
 const ProductText = ({ description }) => {

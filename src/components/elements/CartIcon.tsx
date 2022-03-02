@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { StoreContext } from '../../context/store-context'
 
 interface CartIconProps {
   onClick: () => void
   className: string
 }
 const CartIcon = ({ onClick, className }: CartIconProps) => {
+  const { cartQuantity } = useContext(StoreContext)
+
   return (
-    <button className={className} onClick={onClick}>
+    <button
+      className={`hover:opacity-60 transition ${className}`}
+      onClick={onClick}
+    >
+      <div className='absolute top-3 -left-2 bg-clpink text-clgreen h-4 w-4 text-xs pt-0.5 rounded-full flex items-center justify-center'>
+        <span>{cartQuantity}</span>
+      </div>
       <svg
         id='Layer_1'
         data-name='Layer 1'

@@ -1,9 +1,9 @@
-import * as React from 'react'
+import React from 'react'
 import { graphql } from 'gatsby'
+import { ProductType } from '../../../types'
+import Seo from '../../components/elements/Seo'
 import Layout from '../../components/layout/Layout'
 import ProductListing from '../../components/shop/ProductListing'
-import Seo from '../../components/elements/Seo'
-import { ProductType } from '../../../types'
 
 interface ProductsProps {
   data: {

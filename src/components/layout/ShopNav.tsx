@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery, Link } from 'gatsby'
+import { usePathname } from '../../utils/usePathname'
 import React, { useState } from 'react'
 import slugify from '@sindresorhus/slugify'
 
@@ -19,23 +20,24 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
   `)
 
   const [navOpen, setNavOpen] = useState(false)
-  const [selectedProductType, setSelectedProductType] = useState('')
 
-  const handleSelect = (productType: string) => {
-    setSelectedProductType(productType.toLowerCase())
+  const handleSelect = () => {
     toggleNav && toggleNav()
     setNavOpen(false)
   }
 
+  const pathname = usePathname()
+
   return (
     <nav className='flex flex-col flex-wrap relative h-auto uppercase max-w-[2.2em] '>
       <div
-        // onMouseEnter={() => setNavOpen(true)}
         onMouseLeave={() => setNavOpen(false)}
         className='relative w-full h-full flex flex-col'
       >
         <button
-          className='uppercase text-left hover:text-clyellow'
+          className={`${
+            pathname.includes('products') && 'text-clyellow'
+          } uppercase text-left hover:text-clyellow`}
           onClick={() => setNavOpen(!navOpen)}
         >
           {title}

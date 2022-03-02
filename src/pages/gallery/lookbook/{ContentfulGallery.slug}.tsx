@@ -21,7 +21,7 @@ const index = ({ data: { page } }: GalleryQueryType) => {
   }
 
   return (
-    <Layout noMobileMargin>
+    <Layout noMobileMargin={true}>
       <Seo title={`Chopova Lowena ${page?.season} ${page?.galleryType}`} />
 
       <GallerySlider

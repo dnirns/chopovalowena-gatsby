@@ -16,12 +16,7 @@ interface NavProps {
 }
 
 const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
-  const { checkout, didJustAddToCart } = useContext(StoreContext)
-  const items = checkout ? checkout.lineItems : []
-  // ==== Keep for Cart Icon  ==== //
-  const quantity = items.reduce((total, item) => {
-    return total + item.quantity
-  }, 0)
+  const { cartQuantity, didJustAddToCart } = useContext(StoreContext)
 
   const pathname = usePathname()
 
@@ -44,8 +39,6 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
       ? 'text-clblue'
       : 'text-clred'
 
-  const translateDesktopItems =
-    'md:translate-y-2.5 lg:translate-y-[.75rem] xl:translate-y-[.9rem] 2xl:translate-y-[1.1rem]'
   return (
     <>
       <nav
@@ -63,7 +56,7 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
               didJustAddToCart ? 'text-clpink' : 'text-black'
             }  mx-2`}
           >
-            {quantity}
+            {cartQuantity}
           </span>
         </button>
         <div className='flex w-1/2 translate-desktop-nav justify-between px-2'>
@@ -72,7 +65,7 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
       </nav>
       {/* ===== mobile nav ===== */}
       <div className='z-30 flex w-full justify-between uppercase md:hidden '>
-        <h1 className={`${titleColour} px-4 pt-6 text-6xl`}>
+        <h1 className={`${titleColour} px-4 pt-5 text-5xl`}>
           {pageTitle.replace('/', '')}
         </h1>
         {!menuOpen && (

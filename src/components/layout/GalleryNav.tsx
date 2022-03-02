@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
-import { graphql, useStaticQuery, Link } from 'gatsby'
-import { GalleryType } from '../../../types'
 import { useLocation } from '@reach/router'
+import { graphql, Link, useStaticQuery } from 'gatsby'
+import React, { useState } from 'react'
+
+import { GalleryType } from '../../../types'
 
 interface GalleryNavProps {
   title: string

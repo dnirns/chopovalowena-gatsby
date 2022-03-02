@@ -1,6 +1,7 @@
 import React from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { CloseButton } from '../elements/ToggleButtons'
+import Arrow from '../elements/Arrow'
 
 interface GallerySliderProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,23 +25,18 @@ const GallerySlider = ({
     <div
       className={`${
         !open && '-translate-x-[100%]'
-      } transition ease-in-out duration-300 fixed h-screen w-1/2 bg-white z-20 hidden md:flex top-0 left-0 p-6 `}
+      } transition ease-in-out duration-300 fixed h-screen w-1/2 bg-white z-20 hidden md:flex top-0 left-0 p-3`}
     >
       <CloseButton
         onClick={toggleSlider}
         className='absolute top-0 left-0 m-4'
       />
 
-      <div
-        onClick={nextImage}
-        className='h-full w-full flex items-center justify-center'
-      >
-        <button
-          onClick={nextImage}
-          className='cursor-pointer text-4xl mr-4 hover:opacity-50'
-        >
-          -
-        </button>
+      <div className='h-full w-full flex items-center justify-between '>
+        <Arrow
+          className='h-16 w-16 pl-2 rotate-180 flex cursor-pointer hover:opacity-60 transition duration-150'
+          onClick={previousImage}
+        />
 
         <GatsbyImage
           objectFit='contain'
@@ -48,12 +44,10 @@ const GallerySlider = ({
           image={image}
           className='my-10 max-h-[80vh]'
         />
-        <button
+        <Arrow
+          className='h-16 w-16 pl-2 flex cursor-pointer hover:opacity-60 transition duration-150'
           onClick={nextImage}
-          className='cursor-pointer text-4xl ml-4 hover:opacity-50'
-        >
-          +
-        </button>
+        />
       </div>
     </div>
   )

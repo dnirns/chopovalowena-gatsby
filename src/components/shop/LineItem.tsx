@@ -38,8 +38,8 @@ const LineItem = ({ item }: LineItemProps) => {
 
   return (
     <div className='grid gap-2 grid-cols-6 text-xs my-8 uppercase'>
-      <div className='col-span-1 flex items-center justify-center'>
-        <CloseButton onClick={handleRemove} className='h-5 w-5 xl:h-6 xl:w-6' />
+      <div className='col-span-1 flex items-center justify-between'>
+        <CloseButton onClick={handleRemove} className='h-4 w-4 ml-4' />
       </div>
       <div className='col-span-1'>
         {image && (

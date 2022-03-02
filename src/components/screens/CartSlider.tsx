@@ -18,26 +18,23 @@ const CartSlider = ({ cartOpen, toggleSlider }: CartSliderProps) => {
   }
   return (
     <Slider open={cartOpen} toggleSlider={toggleSlider} desktopOnly={false}>
-      <main className='mt-10 h-full w-full'>
+      <main className='mt-10 h-full w-full uppercase'>
         {emptyCart ? (
           <div className='flex h-full w-full items-center justify-center pb-20'>
-            <h1
-              className='
-             text-3xl uppercase'
-            >
-              cart is empty
-            </h1>
+            <h1 className='text-4xl md:global-text-sizes'>cart is empty</h1>
           </div>
         ) : (
           <div className=' flex h-full flex-col space-y-8 pt-4'>
-            <h1 className='text-center text-4xl font-bold uppercase'>CART</h1>
+            <h1 className='text-center text-3xl md:global-text-sizes font-bold '>
+              CART
+            </h1>
             <div>
               {checkout.lineItems.map((item) => (
                 <LineItem item={item} key={item.id} />
               ))}
             </div>
             <button
-              className='my-2 bg-clpink px-4 pt-3 pb-2 text-xl uppercase text-white transition duration-200 hover:bg-opacity-60'
+              className='my-2 bg-clpink px-4 pt-3 pb-2   text-white transition duration-200 hover:bg-opacity-60 uppercase'
               onClick={handleCheckout}
               disabled={loading}
             >

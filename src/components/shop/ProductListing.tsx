@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react'
-import { StoreContext } from '../../context/store-context'
-import ProductCard from './ProductCard'
+import React, { useContext, useState } from 'react'
+
 import { ProductType } from '../../../types'
+import { StoreContext } from '../../context/store-context'
 import ProductSlider from '../screens/ProductSlider'
+import ProductCard from './ProductCard'
 
 interface ProductListingProps {
   products: ProductType[]
@@ -12,7 +13,7 @@ const ProductListing = ({ products }: ProductListingProps) => {
   const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(
     products[0]
   )
-  const [showSlider, setShowSlider] = useState(true)
+  const [showSlider, setShowSlider] = useState(false)
 
   const { isCartOpen, toggleCart } = useContext(StoreContext)
 
@@ -36,7 +37,7 @@ const ProductListing = ({ products }: ProductListingProps) => {
       <div
         className={`${
           showSlider || isCartOpen
-            ? 'md:w-1/2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3'
+            ? 'md:w-1/2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 px-4'
             : 'md:grid-cols-4 lg:grid-cols-4 w-full'
         } grid grid-cols-2 gap-4 `}
       >
