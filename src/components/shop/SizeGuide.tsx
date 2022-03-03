@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import Modal from '../elements/Modal'
 
 interface SizeGuideProps {
   className?: string
@@ -30,7 +31,7 @@ const SizeGuide = ({ className, isOpen, close }: SizeGuideProps) => {
   const sizeGuides = data.edges[0].node
 
   return (
-    <div className='cursor-auto '>
+    <div className='cursor-default'>
       <div
         className={`${
           isOpen ? 'opacity-100' : 'opacity-0'

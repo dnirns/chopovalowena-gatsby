@@ -42,7 +42,7 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
   return (
     <>
       <nav
-        className={`${className} global-text-sizes tra fixed z-20 mt-[-10px] 2xl:mt-[-10px] hidden h-auto w-full items-start justify-between bg-white px-2 pt-2  md:flex`}
+        className={`${className} global-text-sizes transition fixed z-20 mt-[-10px] 2xl:mt-[-10px] hidden h-auto w-full items-start justify-between bg-white px-2 pt-2  md:flex`}
       >
         <button
           onClick={toggleCart}
@@ -69,23 +69,23 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
           {pageTitle.replace('/', '')}
         </h1>
         {!menuOpen && (
-          <div className='fixed top-0 right-0 z-40 '>
-            <CartIcon onClick={toggleCart} className='h-7 w-7' />
-            <MenuButton className='h-5 w-5' onClick={toggleMenu} />
+          <div className='fixed top-0 right-0 z-30 '>
+            <CartIcon onClick={toggleCart} className='h-8 w-8' />
+            <MenuButton className='h-6 w-6' onClick={toggleMenu} />
           </div>
         )}
 
         <nav
           className={`${
             menuOpen ? 'translate-x-0' : 'translate-x-[100%]'
-          } no-scroll fixed top-0 left-0 z-20 mb-16 flex h-full w-screen flex-col bg-white p-6 text-5xl transition duration-300 ease-in-out `}
+          } no-scroll fixed top-0 left-0  mb-16 flex h-full w-screen flex-col bg-white p-6 text-5xl transition duration-300 ease-in-out z-30`}
         >
           <CloseButton
             onClick={toggleMenu}
-            className='absolute top-0 right-0 m-4'
+            className='absolute top-1 right-1 m-4 h-[30px] w-[30px]'
           />
 
-          <div className='absolute flex h-full w-full flex-col overflow-y-scroll'>
+          <div className='absolute h-full flex-col overflow-y-scroll flex'>
             <NavItems onClick={toggleMenu} />
           </div>
 
@@ -108,7 +108,7 @@ const NavItems = ({ onClick }: NavItemsProps) => {
         to='/about'
         className={`${
           pathname.includes('about') && 'text-clgreen'
-        } hover:text-clgreen`}
+        } hover:text-clgreen `}
         onClick={onClick}
       >
         ABOUT

@@ -58,3 +58,15 @@ html,
 .translate-desktop-nav {
   @apply md:translate-y-2.5 lg:translate-y-[.75rem] xl:translate-y-[.9rem] 2xl:translate-y-[1.1rem];
 }
+
+.image-hover {
+  @apply hover:opacity-[90%] transition-opacity duration-300 ease-in-out;
+}
+
+.arrow-cursor {
+  cursor: url('../assets/cursors/right-arrow-cursor.svg'), auto;
+}
+
+.cross-cursor {
+  cursor: url('../assets/cursors/cross-cursor.svg'), auto;
+}

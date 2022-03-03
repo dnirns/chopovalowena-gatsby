@@ -29,7 +29,7 @@ const QuantitySelect = ({
   }
 
   return (
-    <div className='text-lg 2xl:text-xl uppercase'>
+    <div className='text-xl md:text-lg 2xl:text-xl uppercase'>
       <div className='pb-3'>
         {remainingStock === 1 ? (
           <p>ONLY 1 LEFT</p>
@@ -40,13 +40,15 @@ const QuantitySelect = ({
         )}
       </div>
 
-      <div className='flex items-center space-x-2'>
+      <div className='flex items-center space-x-6 md:space-x-2'>
         <p>{availableQuantities.length ? 'Quantity' : 'Out of stock'}</p>
-        <div className='space-x-2 flex items-center'>
-          <span className='text-clpink'>{selectedQuantity}</span>
+        <div className='space-x-6 md:space-x-2 flex items-center'>
+          <span className='text-clpink text-2xl md:text-xl'>
+            {selectedQuantity}
+          </span>
 
           {remainingStock > 1 && (
-            <div className='flex pb-1 space-x-2'>
+            <div className='flex pb-1 space-x-6 md:space-x-2 items-center justify-center'>
               <Arrow
                 onClick={() =>
                   handleSelectQuantity(Number(selectedQuantity) - 1)
@@ -56,10 +58,9 @@ const QuantitySelect = ({
                     ? 'cursor-not-allowed opacity-20'
                     : 'cursor-pointer hover:opacity-40'
                 }
-          rotate-90 h-3 w-3`}
+          rotate-90 h-6 w-6 md:h-3 md:w-3`}
               />
 
-              {}
               <Arrow
                 onClick={() =>
                   handleSelectQuantity(Number(selectedQuantity) + 1)
@@ -69,7 +70,7 @@ const QuantitySelect = ({
                     ? 'cursor-not-allowed opacity-20'
                     : 'cursor-pointer hover:opacity-40'
                 }
-          -rotate-90 h-3 w-3`}
+          -rotate-90 h-6 w-6 md:h-3 md:w-3`}
               />
             </div>
           )}

@@ -11,6 +11,7 @@ interface GallerySliderProps {
   toggleSlider: () => void
   nextImage: () => void
   previousImage: () => void
+  onClick: () => void
 }
 
 const GallerySlider = ({
@@ -20,6 +21,7 @@ const GallerySlider = ({
   toggleSlider,
   nextImage,
   previousImage,
+  onClick,
 }: GallerySliderProps) => {
   return (
     <div
@@ -34,16 +36,19 @@ const GallerySlider = ({
 
       <div className='h-full w-full flex items-center justify-between '>
         <Arrow
-          className='h-16 w-16 pl-2 rotate-180 flex cursor-pointer hover:opacity-60 transition duration-150'
+          className='h-16 w-16 pl-2 rotate-180 flex cursor-pointer hover:opacity-60 transition duration-200 ease-in-out'
           onClick={previousImage}
         />
 
-        <GatsbyImage
-          objectFit='contain'
-          alt={alt}
-          image={image}
-          className='my-10 max-h-[80vh]'
-        />
+        <div onClick={onClick} className='cursor-zoom-in image-hover'>
+          <GatsbyImage
+            objectFit='contain'
+            alt={alt}
+            image={image}
+            className='my-10 max-h-[80vh]'
+          />
+        </div>
+
         <Arrow
           className='h-16 w-16 pl-2 flex cursor-pointer hover:opacity-60 transition duration-150'
           onClick={nextImage}

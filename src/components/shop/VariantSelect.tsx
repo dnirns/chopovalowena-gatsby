@@ -22,7 +22,7 @@ const VariantSelect = ({
 
   return (
     <fieldset className='space-x-4 flex my-4 items-center'>
-      <label className='text-xl lg:text-lg 2xl:text-xl font-light'>
+      <label className='text-xl md:text-lg 2xl:text-xl font-light'>
         Select Size
       </label>
       {options.map(({ id, name, values }) => (
@@ -36,7 +36,7 @@ const VariantSelect = ({
                   !inStock ? 'text-stone-400 line-through' : 'hover:text-clpink'
                 } ${
                   selectedVariant === value && 'text-clpink'
-                } px-2 2xl:text-xl`}
+                } px-2 text-2xl md:text-lg 2xl:text-xl`}
                 value={value}
                 key={`${name}-${value}`}
                 disabled={!inStock}

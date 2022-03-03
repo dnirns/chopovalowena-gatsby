@@ -37,11 +37,8 @@ const LineItem = ({ item }: LineItemProps) => {
   )
 
   return (
-    <div className='grid gap-2 grid-cols-6 text-xs my-8 uppercase'>
-      <div className='col-span-1 flex items-center justify-between'>
-        <CloseButton onClick={handleRemove} className='h-4 w-4 ml-4' />
-      </div>
-      <div className='col-span-1'>
+    <div className='grid gap-2 grid-cols-7 text-xs my-8 uppercase breaks px-2'>
+      <div className='col-span-1 pr-2'>
         {image && (
           <GatsbyImage
             key={variantImage.src}
@@ -50,16 +47,22 @@ const LineItem = ({ item }: LineItemProps) => {
           />
         )}
       </div>
-      <div className='col-span-2 flex items-center justify-center text-center'>
-        <h5 className='text-xs lg:text-sm xl:text-base'>{item.title}</h5>
+      <div className='col-span-3 flex items-center justify-center text-center breaks'>
+        <h5 className='text-[10px] xl:text-sm'>{item.title}</h5>
       </div>
 
-      <div className='col-span-1 flex items-center justify-center'>
+      <div className='col-span-1 flex items-center justify-center breaks'>
         <p className='text-base xl:text-xl'>{quantity}</p>
       </div>
 
-      <div className='col-span-1 flex items-center justify-evenly'>
+      <div className='col-span-1 flex items-center justify-end text-center'>
         <p className='text-base xl:text-xl'>£{subtotal}</p>
+      </div>
+      <div className='col-span-1 flex items-center justify-center'>
+        <CloseButton
+          onClick={handleRemove}
+          className='h-[12px] w-[12px] ml-4'
+        />
       </div>
     </div>
   )

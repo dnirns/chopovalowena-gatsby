@@ -163,7 +163,7 @@ const ProductSlider = ({
   return (
     <>
       {sizeGuideOpen && (
-        <div className='h-full w-full fixed bg-white bg-opacity-80 top-0 left-0 z-40 flex items-center justify-center cursor-pointer'>
+        <div className='h-full w-full fixed bg-white bg-opacity-80 top-0 left-0 z-40 flex items-center justify-center cross-cursor'>
           <div ref={sizeGuideRef}>
             <SizeGuide isOpen={sizeGuideOpen} close={handleCloseSizeGuide} />
           </div>
@@ -173,8 +173,9 @@ const ProductSlider = ({
       {imageModalOpen && (
         <Modal
           image={images[selectedImage]}
-          open={imageModalOpen}
-          handleToggle={handleToggleImageModal}
+          toggleModal={handleToggleImageModal}
+          cycleImage={(num) => handleCycleImages(num)}
+          multipleImages={images.length > 1}
         />
       )}
 
@@ -185,7 +186,7 @@ const ProductSlider = ({
       >
         <CloseButton
           onClick={closeSlider}
-          className='sticky z-40 top-4 left-4'
+          className={`sticky z-40 top-4 left-4 h-[30px] w-[30px] md:h-5 md:w-5`}
         />
         {/* ==== IMAGE CAROUSEL ===== */}
         {hasImages && (
@@ -196,14 +197,14 @@ const ProductSlider = ({
           >
             {images.length > 1 && (
               <Arrow
-                className='h-5 w-5 mx-2 rotate-180 flex hover:opacity-60'
+                className='h-6 w-6 mx-2 rotate-180 flex hover:opacity-60'
                 onClick={() => handleCycleImages(1)}
               />
             )}
 
             <div onClick={handleToggleImageModal}>
               <GatsbyImage
-                className='mx-1 max-w-[500px]'
+                className='mx-1 max-w-[500px] cursor-zoom-in'
                 key={images[selectedImage]?.id}
                 image={images[selectedImage]?.gatsbyImageData}
                 alt={title}
@@ -211,7 +212,7 @@ const ProductSlider = ({
             </div>
             {images.length > 1 && (
               <Arrow
-                className='h-5 w-5 mx-2 hover:opacity-60 flex'
+                className='h-6 w-6 mx-2 hover:opacity-60 flex'
                 onClick={() => handleCycleImages(-1)}
               />
             )}
@@ -274,11 +275,7 @@ const ProductSlider = ({
               />
             )}
 
-          {hasOneSize && (
-            <p className='text-xl lg:text-lg xl:text-xl pt-2 pb-6 '>
-              One Size Only
-            </p>
-          )}
+          {hasOneSize && <p className='text-lg py-2'>One Size Only</p>}
 
           {/* ==== SELECT QUANTITY =====  */}
           <QuantitySelect

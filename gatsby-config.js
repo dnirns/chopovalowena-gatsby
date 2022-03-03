@@ -2,13 +2,13 @@ require('dotenv').config()
 
 module.exports = {
   siteMetadata: {
-    siteTitle: 'Chopova Lowena',
-    siteTitleDefault: 'Chopova Lowena',
+    siteTitle: 'CHOPOVA LOWENA',
+    siteTitleDefault: 'CHOPOVA LOWENA',
     siteUrl: 'https://chopovalowena.com',
     hrefLang: 'en',
     siteDescription: 'Chopova Lowena E-Commerce and Portfolio site',
-    siteImage: '/default-og-image.jpg',
-    twitter: '@gatsbyjs',
+    siteImage: '',
+    twitter: '',
   },
   flags: {
     FAST_DEV: true,
@@ -36,5 +36,11 @@ module.exports = {
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sitemap',
     'gatsby-plugin-gatsby-cloud',
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        icon: 'src/assets/favicon.png',
+      },
+    },
   ].filter(Boolean),
 }

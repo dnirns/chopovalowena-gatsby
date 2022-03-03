@@ -22,12 +22,9 @@ const Layout = ({ children, noMobileMargin, noMargin }: LayoutProps) => {
   const { toggleCart, isCartOpen } = useContext(StoreContext)
 
   const toggleMenu = () => {
+    isCartOpen && toggleCart()
     setMenuOpen(!menuOpen)
   }
-
-  useEffect(() => {
-    isCartOpen ? console.log('cart open') : console.log('cart closed')
-  }, [isCartOpen])
 
   return (
     <div>

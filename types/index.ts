@@ -77,3 +77,10 @@ export type GalleryQueryType = {
     }
   }
 }
+
+export type BackgroundColourType =
+  | 'bg-clgreen'
+  | 'bg-clred'
+  | 'bg-clblue'
+  | 'bg-clpink'
+  | 'bg-clyellow'
