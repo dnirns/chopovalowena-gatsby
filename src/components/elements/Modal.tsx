@@ -1,27 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef, useState, useEffect } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import { BLOCKS } from '@contentful/rich-text-types'
+import { renderBareRichText } from '../contentful/RichText'
 import useOutsideClick from '../../hooks/useOutsideClick'
 import { CloseButton } from '../elements/ToggleButtons'
 
 interface ModalProps {
   toggleModal: () => void
   cycleImage?: (num: number) => void | (() => void)
-  image: any
-  multipleImages?: boolean
+  image?: any
+  responsiveImage?: {
+    desktop?: any
+    mobile?: any
+  }
+  hasMultiple?: boolean
+  text?: any
 }
 const Modal = ({
   image,
+  responsiveImage,
   toggleModal,
   cycleImage,
-  multipleImages,
+  hasMultiple,
+  text,
 }: ModalProps) => {
   const ref = useRef(null)
-
   const [isOpen, setIsOpen] = useState(false)
   const [allowToggle, setAllowToggle] = useState(true)
-
-  console.log(multipleImages)
 
   useEffect(() => {
     setTimeout(() => {
@@ -36,7 +42,7 @@ const Modal = ({
       setIsOpen(false)
       setTimeout(() => {
         toggleModal()
-      }, 300)
+      }, 150)
     }
   }
 
@@ -58,25 +64,64 @@ const Modal = ({
     <div
       className={`${
         isOpen ? 'opacity-100 cross-cursor' : 'opacity-0 cursor-default'
-      } transition ease-in-out duration-300 z-40 fixed top-0 left-0 h-screen w-screen flex bg-white  px-8 `}
+      } transition ease-in-out duration-150 z-40 fixed top-0 left-0 h-screen w-screen flex bg-white/80  px-4 md:px-8 `}
     >
       <CloseButton
         onClick={handleToggleModal}
-        className='fixed md:hidden top-4 left-4 h-8 w-8'
+        className='fixed md:hidden top-4 left-4 h-[30px] w-[30px]'
       />
       <div
         ref={ref}
-        onClick={handleCycleImages ? handleCycleImages : null}
-        className={`bg-white w-[75vh] mx-auto my-auto shadow-2xl z-40 p-3 `}
+        onClick={cycleImage ? handleCycleImages : null}
+        className={`bg-white w-[75vh] mx-auto my-auto shadow-2xl z-50 p-3 border-2 border-black overflow-y-auto h-[75vh]`}
       >
-        <GatsbyImage
-          image={image.gatsbyImageData}
-          alt={image.title}
-          objectFit='contain'
-          className={`${
-            multipleImages ? 'arrow-cursor' : 'cursor-default'
-          } w-full h-full inline-flex top-0 left-0 `}
-        />
+        {text && (
+          <div className='p-4 md:p-12 cursor-default text-justify space-y-6 normal-case overflow-auto '>
+            <h1 className='text-3xl text-center uppercase pb-6'>
+              {text.title}
+            </h1>
+            {renderBareRichText(text.body.raw, {
+              renderNode: {
+                [BLOCKS.PARAGRAPH]: (_node: any, children: any) => (
+                  <p className=''>{children}</p>
+                ),
+                [BLOCKS.HEADING_4]: (_node: any, children: any) => (
+                  <h4 className='text-lg text-center'>{children}</h4>
+                ),
+              },
+            })}
+          </div>
+        )}
+        {image && (
+          <GatsbyImage
+            image={image.gatsbyImageData}
+            alt={image.title}
+            objectFit='contain'
+            className={`${
+              hasMultiple ? 'arrow-cursor' : 'cursor-default'
+            } w-full h-full inline-flex top-0 left-0 `}
+          />
+        )}
+        {responsiveImage && (
+          <>
+            {responsiveImage.desktop && (
+              <GatsbyImage
+                image={responsiveImage.desktop.gatsbyImageData}
+                alt={responsiveImage.desktop.title}
+                objectFit='contain'
+                className='hidden cursor-default w-full h-full md:inline-flex top-0 left-0'
+              />
+            )}
+            {responsiveImage.mobile && (
+              <GatsbyImage
+                image={responsiveImage.mobile.gatsbyImageData}
+                alt={responsiveImage.mobile.title}
+                objectFit='contain'
+                className='md:hidden cursor-default w-full h-full inline-flex top-0 left-0'
+              />
+            )}
+          </>
+        )}
       </div>
     </div>
   )

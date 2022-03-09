@@ -1,20 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
+import React, { useState } from 'react'
 import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout/Layout'
 
 const Home = ({ data: { page } }: any) => {
+  const [openMobileMenu, setOpenMobileMenu] = useState(false)
+
+  const handleOpenMobileMenu = () => {
+    setOpenMobileMenu(true)
+    setTimeout(() => {
+      setOpenMobileMenu(false)
+    }, 100)
+  }
+
   return (
-    <Layout>
+    <Layout openMenu={openMobileMenu}>
       <main className='w-full text-center'>
-        <div className='md:w-1/2 w-full h-screen absolute left-0 top-0 z-20'>
+        <div className='md:w-1/2 fixed w-full h-screen left-0 top-0 z-30'>
           <GatsbyImage
             image={page.image.gatsbyImageData}
             alt='Chopova Lowena Campaign Image'
             objectFit='cover'
             className='h-full'
           />
+          <button
+            onClick={handleOpenMobileMenu}
+            className='md:hidden relative w-full bottom-[16%] 80 text-6xl  hover:text-opacity-80 transition duration-200 ease-in-out text-white mix-blend-exclusion  pt-4'
+          >
+            ENTER SITE
+          </button>
         </div>
       </main>
     </Layout>

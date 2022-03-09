@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react'
 
-import { graphql } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 
 import { ProductType, VariantType } from '../../../types'
 import { StoreContext } from '../../context/store-context'
@@ -17,9 +17,7 @@ import AddToCart from '../elements/AddToCart'
 import Arrow from '../elements/Arrow'
 import { CloseButton } from '../elements/ToggleButtons'
 import QuantitySelect from '../shop/QuantitySelect'
-import SizeGuide from '../shop/SizeGuide'
 import VariantSelect from '../shop/VariantSelect'
-import ImageModal from '../common/ImageModal'
 import Modal from '../elements/Modal'
 
 interface ProductSliderProps {
@@ -33,6 +31,27 @@ const ProductSlider = ({
   showSlider,
   closeSlider,
 }: ProductSliderProps) => {
+  const { sizeGuideData } = useStaticQuery(graphql`
+    query {
+      sizeGuideData: allContentfulSizeGuides {
+        edges {
+          node {
+            mobileImage {
+              gatsbyImageData(placeholder: BLURRED, width: 600, quality: 100)
+              title
+            }
+            desktopImage {
+              title
+              gatsbyImageData(placeholder: BLURRED, width: 900, quality: 100)
+            }
+          }
+        }
+      }
+    }
+  `)
+
+  const sizeGuides = sizeGuideData?.edges[0].node
+
   const {
     variants,
     images,
@@ -133,10 +152,12 @@ const ProductSlider = ({
   const sizeGuideRef = useRef(null)
   const imageModalRef = useRef(null)
 
-  // close popup modal with click outside event listener hook
+  // size guide outside click event handler
   useOutsideClick(sizeGuideRef, () => {
     setSizeGuideOpen(false)
   })
+
+  // image modal outside click event handler
   useOutsideClick(imageModalRef, () => {
     setImageModalOpen(false)
   })
@@ -163,11 +184,13 @@ const ProductSlider = ({
   return (
     <>
       {sizeGuideOpen && (
-        <div className='h-full w-full fixed bg-white bg-opacity-80 top-0 left-0 z-40 flex items-center justify-center cross-cursor'>
-          <div ref={sizeGuideRef}>
-            <SizeGuide isOpen={sizeGuideOpen} close={handleCloseSizeGuide} />
-          </div>
-        </div>
+        <Modal
+          responsiveImage={{
+            desktop: sizeGuides.desktopImage,
+            mobile: sizeGuides.mobileImage,
+          }}
+          toggleModal={handleCloseSizeGuide}
+        />
       )}
 
       {imageModalOpen && (
@@ -175,7 +198,7 @@ const ProductSlider = ({
           image={images[selectedImage]}
           toggleModal={handleToggleImageModal}
           cycleImage={(num) => handleCycleImages(num)}
-          multipleImages={images.length > 1}
+          hasMultiple={images.length > 1}
         />
       )}
 
@@ -185,8 +208,9 @@ const ProductSlider = ({
         } fixed top-0 left-0 z-30 h-full w-full md:w-1/2 bg-white transition duration-300 overflow-auto no-scrollbar`}
       >
         <CloseButton
+          disabled={imageModalOpen || sizeGuideOpen}
           onClick={closeSlider}
-          className={`sticky z-40 top-4 left-4 h-[30px] w-[30px] md:h-5 md:w-5`}
+          className={`sticky z-40 top-4 left-4 h-[30px] w-[30px] md:h-6 md:w-6 transition-opacity duration-150`}
         />
         {/* ==== IMAGE CAROUSEL ===== */}
         {hasImages && (
@@ -197,7 +221,7 @@ const ProductSlider = ({
           >
             {images.length > 1 && (
               <Arrow
-                className='h-6 w-6 mx-2 rotate-180 flex hover:opacity-60'
+                className='h-7 md:h-6 w-7 md:w-6 mx-2 rotate-180 flex hover:opacity-60'
                 onClick={() => handleCycleImages(1)}
               />
             )}
@@ -212,7 +236,7 @@ const ProductSlider = ({
             </div>
             {images.length > 1 && (
               <Arrow
-                className='h-6 w-6 mx-2 hover:opacity-60 flex'
+                className='h-7 md:h-6 w-7 md:w-6mx-2 hover:opacity-60 flex'
                 onClick={() => handleCycleImages(-1)}
               />
             )}

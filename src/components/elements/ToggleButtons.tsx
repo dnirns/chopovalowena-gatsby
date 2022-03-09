@@ -3,13 +3,23 @@ import React from 'react'
 interface ToggleButtonProps {
   className?: string
   onClick?: () => void
+  disabled?: boolean
 }
 
-export const CloseButton = ({ className, onClick }: ToggleButtonProps) => {
+export const CloseButton = ({
+  className,
+  onClick,
+  disabled,
+}: ToggleButtonProps) => {
   return (
     <button
-      onClick={onClick}
-      className={`${className} w-5 h-5 hover:opacity-50 transition-opacity duration-75`}
+      disabled={disabled}
+      onClick={!disabled ? onClick : undefined}
+      className={`${className} ${
+        !disabled
+          ? 'hover:opacity-50 transition-opacity duration-75'
+          : 'opacity-50'
+      } w-5 h-5 `}
     >
       <svg
         version='1.1'

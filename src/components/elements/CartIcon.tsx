@@ -10,10 +10,10 @@ const CartIcon = ({ onClick, className }: CartIconProps) => {
 
   return (
     <button
-      className={`hover:opacity-60 transition ${className}`}
+      className={`hover:opacity-60 transition relative ${className}`}
       onClick={onClick}
     >
-      <div className='absolute top-3 -left-2 bg-clpink text-clgreen h-4 w-4 text-xs pt-0.5 rounded-full flex items-center justify-center'>
+      <div className='absolute -top-1 -left-2 bg-clpink text-clgreen h-4 w-4 text-xs pt-0.5 rounded-full flex items-center justify-center'>
         <span>{cartQuantity}</span>
       </div>
       <svg

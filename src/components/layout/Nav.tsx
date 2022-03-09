@@ -20,6 +20,8 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
 
   const pathname = usePathname()
 
+  console.log(pathname)
+
   const isShop = pathname.includes('products')
 
   const pageTitle = pathname.includes('gallery')
@@ -64,11 +66,11 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
         </div>
       </nav>
       {/* ===== mobile nav ===== */}
-      <div className='z-30 flex w-full justify-between uppercase md:hidden '>
+      <div className='z-30 flex w-full justify-between uppercase md:hidden bg-white '>
         <h1 className={`${titleColour} px-4 pt-5 text-5xl`}>
           {pageTitle.replace('/', '')}
         </h1>
-        {!menuOpen && (
+        {!menuOpen && pathname && (
           <div className='fixed top-0 right-0 z-30 '>
             <CartIcon onClick={toggleCart} className='h-8 w-8' />
             <MenuButton className='h-6 w-6' onClick={toggleMenu} />
@@ -85,11 +87,16 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
             className='absolute top-1 right-1 m-4 h-[30px] w-[30px]'
           />
 
-          <div className='absolute h-full flex-col overflow-y-scroll flex'>
+          <div className='absolute h-full flex-col  flex'>
             <NavItems onClick={toggleMenu} />
           </div>
 
-          <Logo className='absolute bottom-0 self-center bg-white py-4' />
+          <Link
+            to='/'
+            className='hover:opacity-70 transition-opacity duration-200 ease-in-out'
+          >
+            <Logo className='absolute bottom-0 self-center bg-white py-4' />
+          </Link>
         </nav>
       </div>
     </>
