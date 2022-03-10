@@ -17,7 +17,7 @@ const Home = ({ data: { page } }: any) => {
   return (
     <Layout openMenu={openMobileMenu}>
       <main className='w-full text-center'>
-        <div className='md:w-1/2 fixed w-full h-screen left-0 top-0 z-30'>
+        <div className='md:w-1/2 fixed w-full h-screen left-0 top-0 z-20'>
           <GatsbyImage
             image={page.image.gatsbyImageData}
             alt='Chopova Lowena Campaign Image'

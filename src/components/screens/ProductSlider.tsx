@@ -8,14 +8,15 @@ import React, {
 } from 'react'
 
 import { graphql, useStaticQuery } from 'gatsby'
-
-import { ProductType, VariantType } from '../../../types'
-import { StoreContext } from '../../context/store-context'
-import useOutsideClick from '../../hooks/useOutsideClick'
 import { cycleImages } from '../../utils/cycleImages'
+import { StoreContext } from '../../context/store-context'
+import { ProductType, VariantType } from '../../../types'
+
+import useOutsideClick from '../../hooks/useOutsideClick'
+
+import { CloseButton } from '../elements/ToggleButtons'
 import AddToCart from '../elements/AddToCart'
 import Arrow from '../elements/Arrow'
-import { CloseButton } from '../elements/ToggleButtons'
 import QuantitySelect from '../shop/QuantitySelect'
 import VariantSelect from '../shop/VariantSelect'
 import Modal from '../elements/Modal'
@@ -210,7 +211,7 @@ const ProductSlider = ({
         <CloseButton
           disabled={imageModalOpen || sizeGuideOpen}
           onClick={closeSlider}
-          className={`sticky z-40 top-4 left-4 h-[30px] w-[30px] md:h-6 md:w-6 transition-opacity duration-150`}
+          className={`sticky z-40 top-4 left-4 h-[32px] w-[32px] md:h-6 md:w-6 transition-opacity duration-150`}
         />
         {/* ==== IMAGE CAROUSEL ===== */}
         {hasImages && (
@@ -226,9 +227,13 @@ const ProductSlider = ({
               />
             )}
 
-            <div onClick={handleToggleImageModal}>
+            <div
+              className='mx-1 max-w-[400px] cursor-zoom-in breaks'
+              onClick={handleToggleImageModal}
+            >
               <GatsbyImage
-                className='mx-1 max-w-[500px] cursor-zoom-in'
+                // className='mx-1 max-w-[400px] cursor-zoom-in'
+                objectFit='cover'
                 key={images[selectedImage]?.id}
                 image={images[selectedImage]?.gatsbyImageData}
                 alt={title}

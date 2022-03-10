@@ -23,7 +23,7 @@ const Slider = ({
     >
       <CloseButton
         onClick={toggleSlider}
-        className='fixed top-4 left-4 h-[30px] w-[30px] md:w-5 md-h-5'
+        className='fixed top-4 left-4 h-[32px] w-[32px] md:w-6 md-h-6'
       />
       {children}
     </div>

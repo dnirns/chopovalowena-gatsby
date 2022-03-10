@@ -67,9 +67,12 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
       </nav>
       {/* ===== mobile nav ===== */}
       <div className='z-30 flex w-full justify-between uppercase md:hidden bg-white '>
-        <h1 className={`${titleColour} px-4 pt-5 text-5xl`}>
-          {pageTitle.replace('/', '')}
-        </h1>
+        {pathname && (
+          <h1 className={`${titleColour} px-4 pt-5 text-5xl`}>
+            {pageTitle.replace('/', '')}
+          </h1>
+        )}
+
         {!menuOpen && pathname && (
           <div className='fixed top-0 right-0 z-30 '>
             <CartIcon onClick={toggleCart} className='h-8 w-8' />
@@ -84,7 +87,7 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
         >
           <CloseButton
             onClick={toggleMenu}
-            className='absolute top-1 right-1 m-4 h-[30px] w-[30px]'
+            className='absolute top-1 right-1 m-4 h-[32px] w-[32px]'
           />
 
           <div className='absolute h-full flex-col  flex'>
@@ -93,9 +96,9 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
 
           <Link
             to='/'
-            className='hover:opacity-70 transition-opacity duration-200 ease-in-out'
+            className='hover:opacity-70 transition-opacity duration-200 ease-in-out '
           >
-            <Logo className='absolute bottom-0 self-center bg-white py-4' />
+            <Logo className='absolute bottom-0 w-full left-0 self-center bg-white p-4' />
           </Link>
         </nav>
       </div>

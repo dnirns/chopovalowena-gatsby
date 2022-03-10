@@ -52,7 +52,7 @@ const contact = ({ data: { contacts, terms } }) => {
             <button onClick={handleToggleModal}>TERMS & CONDITIONS</button>
           </li>
         </ul>
-        <div className='h-12 w-12 md:h-8 md:w-8 md:absolute mt-12 bottom-[10%] left-4 md:bottom-4 md:left-4 hover:text-clred '>
+        <div className='h-10 w-10 md:h-8 md:w-8 md:absolute mt-12 bottom-[10%] left-4 md:bottom-4 md:left-4 hover:text-clred '>
           <a href='https://insagram.com/chopovalowena'>
             <svg
               fill='currentColor'
