@@ -53,7 +53,7 @@ const contact = ({ data: { contacts, terms } }) => {
           </li>
         </ul>
         <div className='h-10 w-10 md:h-8 md:w-8 md:absolute mt-12 bottom-[10%] left-4 md:bottom-4 md:left-4 hover:text-clred '>
-          <a href='https://insagram.com/chopovalowena'>
+          <a href='https://instagram.com/chopovalowena'>
             <svg
               fill='currentColor'
               version='1.1'
