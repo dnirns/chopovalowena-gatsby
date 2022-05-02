@@ -1,6 +1,6 @@
 build/
 node_modules/
-src/assets/
+
 .cache/
 public
 .idea
