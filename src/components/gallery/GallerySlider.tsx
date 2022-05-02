@@ -31,16 +31,19 @@ const GallerySlider = ({
     >
       <CloseButton
         onClick={toggleSlider}
-        className='absolute top-0 left-0 m-4'
+        className='absolute top-0 left-0 m-4 h-[32px] w-[32px] md:h-6 md:w-6'
       />
 
-      <div className='h-full w-full flex items-center justify-between '>
+      <div className='h-full  flex items-center justify-between '>
         <Arrow
-          className='h-16 w-16 pl-2 rotate-180 flex cursor-pointer hover:opacity-60 transition duration-200 ease-in-out'
+          className='h-7 md:h-6 w-7 md:w-6 mx-2 rotate-180 flex hover:opacity-60 cursor-pointer'
           onClick={previousImage}
         />
 
-        <div onClick={onClick} className='cursor-zoom-in image-hover'>
+        <div
+          onClick={onClick}
+          className='cursor-zoom-in image-hover mx-1 flex-1'
+        >
           <GatsbyImage
             objectFit='contain'
             alt={alt}
@@ -50,7 +53,7 @@ const GallerySlider = ({
         </div>
 
         <Arrow
-          className='h-16 w-16 pl-2 flex cursor-pointer hover:opacity-60 transition duration-150'
+          className='h-7 md:h-6 w-7 md:w-6 mx-2 hover:opacity-60 flex cursor-pointer'
           onClick={nextImage}
         />
       </div>

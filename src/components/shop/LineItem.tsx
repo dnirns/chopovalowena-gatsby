@@ -37,7 +37,7 @@ const LineItem = ({ item }: LineItemProps) => {
   )
 
   return (
-    <div className='grid gap-2 grid-cols-7 text-xs my-8 uppercase breaks px-2'>
+    <div className='grid gap-2 grid-cols-7 text-xs my-8 uppercase px-2'>
       <div className='col-span-1 pr-2'>
         {image && (
           <GatsbyImage
@@ -47,11 +47,11 @@ const LineItem = ({ item }: LineItemProps) => {
           />
         )}
       </div>
-      <div className='col-span-3 flex items-center justify-center text-center breaks'>
-        <h5 className='text-[10px] xl:text-sm'>{item.title}</h5>
+      <div className='col-span-3 flex items-center justify-center text-center'>
+        <h5 className='text-[11px] xl:text-sm'>{item.title}</h5>
       </div>
 
-      <div className='col-span-1 flex items-center justify-center breaks'>
+      <div className='col-span-1 flex items-center justify-center'>
         <p className='text-base xl:text-xl'>{quantity}</p>
       </div>
 

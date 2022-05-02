@@ -27,8 +27,8 @@ const contact = ({ data: { contacts, terms } }) => {
         <Modal text={terms.nodes[0]} toggleModal={handleToggleModal} />
       )}
 
-      <main className='md:w-1/2 min-h-full  text-2xl lg:text-3xl  '>
-        <ul className='space-y-8  '>
+      <main className='md:w-1/2 min-h-full  text-xl lg:text-3xl xl:text-4xl '>
+        <ul className='space-y-8 text-left '>
           {contacts.edges.map((contact: ContactType, i) => {
             return (
               <li key={contact.node.id}>

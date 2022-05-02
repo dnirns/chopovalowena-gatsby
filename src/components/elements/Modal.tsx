@@ -64,11 +64,11 @@ const Modal = ({
     <div
       className={`${
         isOpen ? 'opacity-100 cross-cursor' : 'opacity-0 cursor-default'
-      } transition ease-in-out duration-150 z-40 fixed top-0 left-0 h-screen w-screen flex bg-white/80  px-4 md:px-8 `}
+      } transition ease-in-out duration-150 z-40 fixed top-0 left-0 h-screen w-screen flex bg-white/95  px-4 md:px-8 `}
     >
       <CloseButton
         onClick={handleToggleModal}
-        className='fixed md:hidden top-4 left-4 h-[30px] w-[30px]'
+        className='fixed md:hidden top-4 left-4 h-[32px] w-[32px]'
       />
       <div
         ref={ref}

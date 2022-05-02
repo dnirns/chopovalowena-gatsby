@@ -53,6 +53,7 @@ const ProductSlider = ({
 
   const sizeGuides = sizeGuideData?.edges[0].node
 
+  console.log(product)
   const {
     variants,
     images,
@@ -211,14 +212,14 @@ const ProductSlider = ({
         <CloseButton
           disabled={imageModalOpen || sizeGuideOpen}
           onClick={closeSlider}
-          className={`sticky z-40 top-4 left-4 h-[32px] w-[32px] md:h-6 md:w-6 transition-opacity duration-150`}
+          className={`sticky z-40 top-4 left-4 h-[26px] w-[26px] md:h-6 md:w-6 transition-opacity duration-150`}
         />
         {/* ==== IMAGE CAROUSEL ===== */}
         {hasImages && (
           <div
             className={`${
               images.length > 1 ? 'justify-between' : 'justify-center'
-            } w-full flex items-center hover:opacity-90 cursor-pointer px-2`}
+            } w-full  flex items-center hover:opacity-90 cursor-pointer px-2`}
           >
             {images.length > 1 && (
               <Arrow
@@ -228,12 +229,12 @@ const ProductSlider = ({
             )}
 
             <div
-              className='mx-1 max-w-[400px] cursor-zoom-in breaks'
+              className='mx-1 cursor-zoom-in'
               onClick={handleToggleImageModal}
             >
               <GatsbyImage
-                // className='mx-1 max-w-[400px] cursor-zoom-in'
-                objectFit='cover'
+                className='max-w-[400px] h-[500px] cursor-zoom-in'
+                objectFit='contain'
                 key={images[selectedImage]?.id}
                 image={images[selectedImage]?.gatsbyImageData}
                 alt={title}
@@ -241,7 +242,7 @@ const ProductSlider = ({
             </div>
             {images.length > 1 && (
               <Arrow
-                className='h-7 md:h-6 w-7 md:w-6mx-2 hover:opacity-60 flex'
+                className='h-7 md:h-6 w-7 md:w-6 mx-2 hover:opacity-60 flex'
                 onClick={() => handleCycleImages(-1)}
               />
             )}
@@ -304,7 +305,11 @@ const ProductSlider = ({
               />
             )}
 
-          {hasOneSize && <p className='text-lg py-2'>One Size Only</p>}
+          {hasOneSize && (
+            <p className='text-xl md:text-base 2xl:text-xl pt-2 pb-4'>
+              One Size Only
+            </p>
+          )}
 
           {/* ==== SELECT QUANTITY =====  */}
           <QuantitySelect
@@ -319,22 +324,6 @@ const ProductSlider = ({
 }
 
 export default ProductSlider
-
-// export const query = graphql`
-//   query ($productType: String!) {
-//     product: shopifyProduct(
-//       filter: { productType: { eq: $productType }, totalInventory: { gt: 0 } }
-//       sort: { fields: publishedAt, order: ASC }
-//     ) {
-//       nodes {
-//         ...ProductCard
-//       }
-//       pageInfo {
-//         hasNextPage
-//       }
-//     }
-//   }
-// `
 
 // eslint-disable-next-line react/prop-types
 const ProductText = ({ description }) => {

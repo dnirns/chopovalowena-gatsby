@@ -13,7 +13,7 @@ type Stockist = {
 const stockists = ({ data: { stockists } }) => {
   return (
     <Layout>
-      <main className='md:w-1/2'>
+      <main className='md:w-1/2 mb-28 md:mb-0'>
         <ul className='space-y-6'>
           {stockists.edges.map((country: Stockist) => {
             return (
@@ -21,7 +21,7 @@ const stockists = ({ data: { stockists } }) => {
                 className='text-2xl md:global-text-sizes'
                 key={country.node.id}
               >
-                <h2 className='underline pb-1'>{country.node.country}</h2>
+                <h2 className='underline py-6'>{country.node.country}</h2>
                 <ul className='leading-tight'>
                   {country.node.stores.map((store) => {
                     return <li key={store}>{store}</li>

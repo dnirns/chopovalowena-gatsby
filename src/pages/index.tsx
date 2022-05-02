@@ -21,6 +21,7 @@ const Home = ({ data: { page } }: any) => {
           <GatsbyImage
             image={page.image.gatsbyImageData}
             alt='Chopova Lowena Campaign Image'
+            objectPosition={'50% 0%'}
             objectFit='cover'
             className='h-full'
           />

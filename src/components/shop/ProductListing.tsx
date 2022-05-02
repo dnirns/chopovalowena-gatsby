@@ -5,6 +5,8 @@ import { StoreContext } from '../../context/store-context'
 import ProductSlider from '../screens/ProductSlider'
 import ProductCard from './ProductCard'
 
+import { useLocation } from '@reach/router'
+
 interface ProductListingProps {
   products: ProductType[]
 }
@@ -16,6 +18,10 @@ const ProductListing = ({ products }: ProductListingProps) => {
   const [showSlider, setShowSlider] = useState(false)
 
   const { isCartOpen, toggleCart } = useContext(StoreContext)
+
+  const { pathname } = useLocation()
+
+  const isSalePage = pathname.includes('sale')
 
   const handleProductClick = (product: ProductType) => {
     isCartOpen && toggleCart()
@@ -57,11 +63,12 @@ const ProductListing = ({ products }: ProductListingProps) => {
               className='relative flex items-center justify-center cursor-pointer'
             >
               {/* ===== Banner for items with sale tag */}
-              {product?.tags?.filter((tag) => tag === 'sale').length > 0 && (
-                <span className='absolute z-10 w-[85%] bg-clpink bg-opacity-70 p-0 text-center pt-0.5 text-white text-sm md:text-xs xl:text-sm -rotate-12'>
-                  SALE
-                </span>
-              )}
+              {!isSalePage &&
+                product?.productType?.toLowerCase() === 'sale' && (
+                  <span className='absolute z-10 w-[90%] bg-clpink bg-opacity-70 p-0 text-center pt-0.5 text-white text-sm md:text-xs xl:text-sm -rotate-12'>
+                    SALE
+                  </span>
+                )}
               <ProductCard
                 product={product}
                 key={product?.id}

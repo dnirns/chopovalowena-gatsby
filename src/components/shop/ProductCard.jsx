@@ -1,18 +1,17 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react'
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import { getShopifyImage } from 'gatsby-source-shopify'
-import { ProductType } from '../../../types'
 
 const ProductCard = ({ product, eager }) => {
   const { title, priceRangeV2, slug, images, storefrontImages } = product
 
   const [image, setImage] = useState(0)
 
-  // const handleHover = (index) => {
-  //   setImage(index)
-  // }
+  const handleHover = (index) => {
+    setImage(index)
+  }
 
   // const price = priceRangeV2?.minVariantPrice.amount
 
@@ -33,19 +32,19 @@ const ProductCard = ({ product, eager }) => {
   }
 
   return (
-    // <div
-    //   onMouseOver={() => handleHover(images.length - 1)}
-    //   onMouseOut={() => handleHover(0)}
-    // >
-    <GatsbyImage
-      alt={images[image]?.altText || title}
-      image={images[image]?.gatsbyImageData || storefrontImageData}
-      loading={eager ? 'eager' : 'lazy'}
-      placeholder='blurred'
-      objectFit='contain'
-      className='hover:opacity-90 hover:cursor-pointer hover:scale-[102%] transition ease-in-out duration-200'
-    />
-    // </div>
+    <div
+      onMouseOver={() => handleHover(images.length > 1 ? 1 : 0)}
+      onMouseOut={() => handleHover(0)}
+    >
+      <GatsbyImage
+        alt={images[image]?.altText || title}
+        image={images[image]?.gatsbyImageData || storefrontImageData}
+        loading={eager ? 'eager' : 'lazy'}
+        placeholder='blurred'
+        objectFit='contain'
+        className='hover:cursor-pointer  h-[250px] sm:h-[300px] lg:h-[400px]'
+      />
+    </div>
   )
 }
 
@@ -65,7 +64,7 @@ export const query = graphql`
     images {
       id
       altText
-      gatsbyImageData(height: 1200, placeholder: BLURRED)
+      gatsbyImageData(height: 1000, placeholder: BLURRED)
     }
     priceRangeV2 {
       minVariantPrice {
