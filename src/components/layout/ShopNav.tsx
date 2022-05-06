@@ -1,7 +1,10 @@
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import { usePathname } from '../../utils/usePathname'
-import React, { useState } from 'react'
+import React, { useState, useRef, useContext } from 'react'
+import { StoreContext } from '../../context/store-context'
 import slugify from '@sindresorhus/slugify'
+
+import useOutsideClick from '../../hooks/useOutsideClick'
 
 interface ShopNavProps {
   title: string
@@ -21,22 +24,30 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
 
   const [navOpen, setNavOpen] = useState(false)
 
-  const handleSelect = () => {
-    toggleNav && toggleNav()
-    setNavOpen(false)
-  }
+  const navRef = useRef<HTMLDivElement>(null)
+
+  useOutsideClick(navRef, () => setNavOpen(false))
+  const { isMobileNavOpen, toggleMobileNav } = useContext(StoreContext)
 
   const pathname = usePathname()
+
+  const handleClickOption = () => {
+    setNavOpen(false)
+    isMobileNavOpen && toggleMobileNav()
+  }
 
   return (
     <nav className='flex flex-col flex-wrap relative h-auto uppercase max-w-[2.2em] '>
       <div
+        ref={navRef}
         onMouseLeave={() => setNavOpen(false)}
         className='relative w-full h-full flex flex-col'
       >
         <button
           className={`${
-            pathname.includes('products') && 'text-clyellow'
+            pathname.includes('products') && !isMobileNavOpen && 'text-clyellow'
+          } ${
+            navOpen && 'text-clyellow'
           } uppercase text-left hover:text-clyellow`}
           onClick={() => setNavOpen(!navOpen)}
         >
@@ -45,7 +56,7 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
         <div
           className={`${
             navOpen ? 'block' : 'hidden'
-          } flex flex-col texts-left bg-none leading-none relative md:-translate-y-1 xl:-translate-y-[.4rem]`}
+          } pl-2 md:pl-0 flex flex-col texts-left bg-none leading-none relative md:-translate-y-1 xl:-translate-y-[.4rem]`}
           onMouseLeave={() => setNavOpen(false)}
         >
           {productTypes.map((name) => (
@@ -53,8 +64,8 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
               key={name}
               className='hover:text-clyellow'
               to={`/products/${slugify(name)}`}
-              activeClassName='text-clyellow '
-              onClick={() => handleSelect(name)}
+              activeClassName={!isMobileNavOpen && 'text-clyellow'}
+              onClick={handleClickOption}
             >
               {name}
             </Link>
@@ -63,8 +74,8 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
             key='All'
             className='hover:text-clyellow'
             to='/products/'
-            activeClassName='text-clyellow '
-            onClick={() => handleSelect('All')}
+            activeClassName={!isMobileNavOpen && 'text-clyellow'}
+            onClick={handleClickOption}
           >
             All
           </Link>

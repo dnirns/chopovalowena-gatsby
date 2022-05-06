@@ -20,7 +20,6 @@ const contact = ({ data: { contacts, terms } }) => {
     }, 10)
   }
 
-  console.log(terms.nodes)
   return (
     <Layout>
       {termsOpen && (

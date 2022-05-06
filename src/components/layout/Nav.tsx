@@ -20,8 +20,6 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
 
   const pathname = usePathname()
 
-  console.log(pathname)
-
   const isShop = pathname.includes('products')
 
   const pageTitle = pathname.includes('gallery')
@@ -44,7 +42,7 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
   return (
     <>
       <nav
-        className={`${className} global-text-sizes transition fixed z-20 mt-[-10px] 2xl:mt-[-10px] hidden h-auto w-full items-start justify-between bg-white px-2 pt-2  md:flex`}
+        className={`${className} global-text-sizes transition fixed z-20 mt-[-10px] 2xl:mt-[-10px] hidden h-auto w-full items-start justify-between bg-white px-2 pt-2 md:flex`}
       >
         <button
           onClick={toggleCart}
@@ -66,9 +64,9 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
         </div>
       </nav>
       {/* ===== mobile nav ===== */}
-      <div className='z-30 flex w-full justify-between uppercase md:hidden bg-white '>
+      <div className='z-30 flex w-full justify-between uppercase md:hidden bg-white'>
         {pathname && (
-          <h1 className={`${titleColour} px-4 pt-5 text-5xl`}>
+          <h1 className={`${titleColour} px-4 pt-5 text-4xl`}>
             {pageTitle.replace('/', '')}
           </h1>
         )}
@@ -83,14 +81,14 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
         <nav
           className={`${
             menuOpen ? 'translate-x-0' : 'translate-x-[100%]'
-          } no-scroll fixed top-0 left-0  mb-16 flex h-full w-screen flex-col bg-white p-6 text-5xl transition duration-300 ease-in-out z-30`}
+          }  fixed top-0 left-0 flex h-full w-screen flex-col bg-white px-4 py-6 text-4xl transition duration-300 ease-in-out z-30`}
         >
           <CloseButton
             onClick={toggleMenu}
             className='absolute top-1 right-1 m-4 h-[32px] w-[32px]'
           />
 
-          <div className='absolute h-full flex-col  flex'>
+          <div className='h-full pb-16 flex-col overflow-scroll flex'>
             <NavItems onClick={toggleMenu} />
           </div>
 
@@ -112,12 +110,13 @@ type NavItemsProps = {
 
 const NavItems = ({ onClick }: NavItemsProps) => {
   const pathname = usePathname()
+  const { isMobileNavOpen } = useContext(StoreContext)
   return (
     <>
       <Link
         to='/about'
         className={`${
-          pathname.includes('about') && 'text-clgreen'
+          pathname.includes('about') && !isMobileNavOpen && 'text-clgreen'
         } hover:text-clgreen `}
         onClick={onClick}
       >
@@ -132,7 +131,7 @@ const NavItems = ({ onClick }: NavItemsProps) => {
       <Link
         to='/contact'
         className={`${
-          pathname.includes('contact') && 'text-clblue'
+          pathname.includes('contact') && !isMobileNavOpen && 'text-clblue'
         } hover:text-clblue `}
         onClick={onClick}
       >
@@ -141,7 +140,7 @@ const NavItems = ({ onClick }: NavItemsProps) => {
       <Link
         to='/stockists'
         className={`${
-          pathname.includes('stockists') && 'text-clred'
+          pathname.includes('stockists') && !isMobileNavOpen && 'text-clred'
         } hover:text-clred `}
         onClick={onClick}
       >

@@ -14,6 +14,9 @@ const client = Client.buildClient(
 )
 
 interface Context {
+  isMobileNavOpen: boolean
+  toggleMobileNav: () => void
+
   checkout: {
     id: string
     lineItems: LineItemType[]
@@ -39,6 +42,9 @@ interface Context {
 
 //  Default Context
 const defaultValues: Context = {
+  isMobileNavOpen: false,
+  toggleMobileNav: () => {},
+
   cart: [],
   cartQuantity: 0,
   isCartOpen: false,
@@ -69,6 +75,7 @@ export const StoreProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(false)
   const [addedToCart, setAddedToCart] = useState(false)
   const [isCartOpen, setIsCartOpen] = useState(false)
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false)
 
   const setCheckoutItem = (checkout) => {
     if (isBrowser) {
@@ -160,6 +167,10 @@ export const StoreProvider = ({ children }: any) => {
     0
   )
 
+  const toggleMobileNav = (): void => {
+    setIsMobileNavOpen(!isMobileNavOpen)
+  }
+
   return (
     <StoreContext.Provider
       value={{
@@ -173,6 +184,8 @@ export const StoreProvider = ({ children }: any) => {
         isCartOpen,
         toggleCart,
         cartQuantity,
+        isMobileNavOpen,
+        toggleMobileNav,
       }}
     >
       {children}

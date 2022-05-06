@@ -28,9 +28,11 @@ const Layout = ({
 
   const hideMenu = pathname.includes('gallery') || pathname.includes('products')
 
-  const { toggleCart, isCartOpen } = useContext(StoreContext)
+  const { toggleCart, isCartOpen, toggleMobileNav, isMobileNavOpen } =
+    useContext(StoreContext)
 
   const toggleMenu = () => {
+    toggleMobileNav()
     isCartOpen && toggleCart()
     setMenuOpen(!menuOpen)
   }
