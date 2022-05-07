@@ -31,7 +31,7 @@ const index = ({ data: { page } }: GalleryQueryType) => {
   }
 
   return (
-    <Layout noMobileMargin={true}>
+    <Layout noMobileMargin={true} noMargin={true}>
       <Seo title={`Chopova Lowena ${page?.season} ${page?.galleryType}`} />
 
       {modalOpen && (
