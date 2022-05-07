@@ -5,8 +5,8 @@ import Layout from '../components/layout/Layout'
 const about = ({ data: { page } }) => {
   return (
     <Layout>
-      <main className='md:w-1/2 text-xl md:text-2xl  text-justify'>
-        <p className='mb-24 md:px-4 '>
+      <main className='md:w-1/2 text-xl md:text-2xl text-justify'>
+        <p className='mb-24 md:px-4'>
           {page.edges[0].node.aboutText.aboutText}
         </p>
       </main>

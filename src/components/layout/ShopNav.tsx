@@ -11,7 +11,12 @@ interface ShopNavProps {
   toggleNav?: () => void
 }
 
-const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
+interface ShopNavCategoriesProps {
+  handleClickOption?: () => void
+}
+export const ShopNavCategories = ({
+  handleClickOption,
+}: ShopNavCategoriesProps) => {
   const {
     allShopifyProduct: { productTypes },
   } = useStaticQuery(graphql`
@@ -22,6 +27,21 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
     }
   `)
 
+  const { isMobileNavOpen } = useContext(StoreContext)
+  return productTypes.map((name) => (
+    <Link
+      key={name}
+      className='hover:text-clyellow'
+      to={`/products/${slugify(name)}`}
+      activeClassName={!isMobileNavOpen && 'text-clyellow'}
+      onClick={handleClickOption}
+    >
+      {name}
+    </Link>
+  ))
+}
+
+const ShopNav = ({ title }: ShopNavProps) => {
   const [navOpen, setNavOpen] = useState(false)
 
   const navRef = useRef<HTMLDivElement>(null)
@@ -59,17 +79,8 @@ const ShopNav = ({ title, toggleNav }: ShopNavProps) => {
           } pl-2 md:pl-0 flex flex-col texts-left bg-none leading-none relative md:-translate-y-1 xl:-translate-y-[.4rem]`}
           onMouseLeave={() => setNavOpen(false)}
         >
-          {productTypes.map((name) => (
-            <Link
-              key={name}
-              className='hover:text-clyellow'
-              to={`/products/${slugify(name)}`}
-              activeClassName={!isMobileNavOpen && 'text-clyellow'}
-              onClick={handleClickOption}
-            >
-              {name}
-            </Link>
-          ))}
+          <ShopNavCategories handleClickOption={handleClickOption} />
+
           <Link
             key='All'
             className='hover:text-clyellow'

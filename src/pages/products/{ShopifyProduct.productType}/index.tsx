@@ -1,9 +1,12 @@
 import * as React from 'react'
 import { graphql } from 'gatsby'
+
 import Layout from '../../../components/layout/Layout'
 import ProductListing from '../../../components/shop/ProductListing'
 import Seo from '../../../components/elements/Seo'
 import { ProductType } from '../../../../types'
+
+import { MobileCategoriesNav } from '../index'
 
 interface ProductIndexProps {
   data: {
@@ -21,6 +24,8 @@ const ProductTypeIndex = ({
   return (
     <Layout>
       <Seo title={`Category: ${productType}`} />
+      <MobileCategoriesNav />
+
       {products.nodes.length > 0 ? (
         <ProductListing products={products.nodes} />
       ) : (

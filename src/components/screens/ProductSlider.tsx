@@ -53,7 +53,6 @@ const ProductSlider = ({
 
   const sizeGuides = sizeGuideData?.edges[0].node
 
-  console.log(product)
   const {
     variants,
     images,
@@ -219,7 +218,7 @@ const ProductSlider = ({
           <div
             className={`${
               images.length > 1 ? 'justify-between' : 'justify-center'
-            } w-full  flex items-center hover:opacity-90 cursor-pointer px-2`}
+            } w-full flex items-center hover:opacity-90 cursor-pointer px-2 pt-6 md:pt-0`}
           >
             {images.length > 1 && (
               <Arrow
@@ -233,7 +232,7 @@ const ProductSlider = ({
               onClick={handleToggleImageModal}
             >
               <GatsbyImage
-                className='max-w-[400px] h-[500px] cursor-zoom-in'
+                className='max-w-[400px] h-[260px] sm:h-[400px] md:h-[500px] cursor-zoom-in'
                 objectFit='contain'
                 key={images[selectedImage]?.id}
                 image={images[selectedImage]?.gatsbyImageData}
@@ -261,7 +260,7 @@ const ProductSlider = ({
         <div className='grid grid-cols-3 md:grid-cols-2 gap-4 px-4'>
           {/* ===== first column span 1 */}
           <div className='col-span-2 md:col-span-1'>
-            <h4 className='md:text-base text-xl  2xl:text-xl'>{title}</h4>
+            <h4 className='text-lg md:text-base 2xl:text-xl'>{title}</h4>
           </div>
 
           <div className='col-span-1 block md:hidden'>

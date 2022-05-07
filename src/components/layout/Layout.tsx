@@ -34,11 +34,11 @@ const Layout = ({
   const toggleMenu = () => {
     toggleMobileNav()
     isCartOpen && toggleCart()
-    setMenuOpen(!menuOpen)
+    // setMenuOpen(!menuOpen)
   }
 
   useEffect(() => {
-    openMenu && setMenuOpen(true)
+    openMenu && toggleMobileNav()
   }, [openMenu])
 
   return (
@@ -48,8 +48,8 @@ const Layout = ({
       {!noNav && (
         <div className='flex w-full justify-end'>
           <Nav
-            toggleMenu={toggleMenu}
-            menuOpen={menuOpen}
+            toggleMobileNav={toggleMenu}
+            mobileNavOpen={isMobileNavOpen}
             toggleCart={toggleCart}
           />
         </div>

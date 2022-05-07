@@ -45,7 +45,7 @@ const ProductListing = ({ products }: ProductListingProps) => {
           showSlider || isCartOpen
             ? 'md:w-1/2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 px-4'
             : 'md:grid-cols-4 lg:grid-cols-4 w-full'
-        } grid grid-cols-2 gap-4 `}
+        } grid grid-cols-2 gap-2`}
       >
         {products && (
           <ProductSlider

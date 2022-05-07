@@ -10,12 +10,17 @@ import CartIcon from '../elements/CartIcon'
 
 interface NavProps {
   className?: string
-  menuOpen: boolean
-  toggleMenu: () => void
+  mobileNavOpen: boolean
+  toggleMobileNav: () => void
   toggleCart: () => void
 }
 
-const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
+const Nav = ({
+  className,
+  mobileNavOpen,
+  toggleMobileNav,
+  toggleCart,
+}: NavProps) => {
   const { cartQuantity, didJustAddToCart } = useContext(StoreContext)
 
   const pathname = usePathname()
@@ -42,7 +47,7 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
   return (
     <>
       <nav
-        className={`${className} global-text-sizes transition fixed z-20 mt-[-10px] 2xl:mt-[-10px] hidden h-auto w-full items-start justify-between bg-white px-2 pt-2 md:flex`}
+        className={`${className} global-text-sizes transition fixed z-20 mt-[-15px] 2xl:mt-[-20px] hidden h-auto w-full items-start justify-between bg-white px-2 pt-2 md:flex`}
       >
         <button
           onClick={toggleCart}
@@ -59,7 +64,7 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
             {cartQuantity}
           </span>
         </button>
-        <div className='flex w-1/2 translate-desktop-nav justify-between px-2'>
+        <div className='flex w-1/2 translate-desktop-nav justify-between px-2 lg:px-3'>
           <NavItems />
         </div>
       </nav>
@@ -71,28 +76,29 @@ const Nav = ({ className, menuOpen, toggleMenu, toggleCart }: NavProps) => {
           </h1>
         )}
 
-        {!menuOpen && pathname && (
+        {!mobileNavOpen && pathname && (
           <div className='fixed top-0 right-0 z-30 '>
             <CartIcon onClick={toggleCart} className='h-8 w-8' />
-            <MenuButton className='h-6 w-6' onClick={toggleMenu} />
+            <MenuButton className='h-6 w-6' onClick={toggleMobileNav} />
           </div>
         )}
 
         <nav
           className={`${
-            menuOpen ? 'translate-x-0' : 'translate-x-[100%]'
+            mobileNavOpen ? 'translate-x-0' : 'translate-x-[100%]'
           }  fixed top-0 left-0 flex h-full w-screen flex-col bg-white px-4 py-6 text-4xl transition duration-300 ease-in-out z-30`}
         >
           <CloseButton
-            onClick={toggleMenu}
+            onClick={toggleMobileNav}
             className='absolute top-1 right-1 m-4 h-[32px] w-[32px]'
           />
 
-          <div className='h-full pb-16 flex-col overflow-scroll flex'>
-            <NavItems onClick={toggleMenu} />
+          <div className='h-full pb-16 flex-col overflow-scroll  no-scrollbar flex'>
+            <NavItems onClick={toggleMobileNav} />
           </div>
 
           <Link
+            onClick={toggleMobileNav}
             to='/'
             className='hover:opacity-70 transition-opacity duration-200 ease-in-out '
           >

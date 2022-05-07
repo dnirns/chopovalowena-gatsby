@@ -16,7 +16,6 @@ const client = Client.buildClient(
 interface Context {
   isMobileNavOpen: boolean
   toggleMobileNav: () => void
-
   checkout: {
     id: string
     lineItems: LineItemType[]
