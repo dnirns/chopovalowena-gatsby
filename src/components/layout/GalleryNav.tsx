@@ -16,7 +16,7 @@ interface GalleryNavProps {
 const GalleryNav = ({ title, toggleNav }: GalleryNavProps) => {
   const { allContentfulGallery } = useStaticQuery(graphql`
     query {
-      allContentfulGallery(sort: { fields: slug, order: DESC }) {
+      allContentfulGallery(sort: { fields: year, order: DESC }) {
         edges {
           node {
             id
@@ -24,6 +24,7 @@ const GalleryNav = ({ title, toggleNav }: GalleryNavProps) => {
             season
             galleryType
             header
+            year
           }
         }
       }

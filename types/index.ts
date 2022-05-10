@@ -56,6 +56,7 @@ export type GalleryType = {
     season: string
     galleryType: string
     header: string
+    year: number
   }
 }
 
