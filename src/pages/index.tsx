@@ -27,7 +27,7 @@ const Home = ({ data: { page } }: any) => {
           />
           <button
             onClick={handleOpenMobileMenu}
-            className='md:hidden relative w-full bottom-[16%] 80 text-6xl  hover:text-opacity-80 transition duration-200 ease-in-out text-white mix-blend-exclusion  pt-4'
+            className='md:hidden relative w-full bottom-[50%] text-6xl hover:text-opacity-80 transition duration-200 ease-in-out text-white mix-blend-difference z-30'
           >
             ENTER SITE
           </button>
